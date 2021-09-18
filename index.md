@@ -1,37 +1,14 @@
-## Welcome to GitHub Pages
+## Class-Optimizer
 
-You can use the [editor on GitHub](https://github.com/open-source-at-illinois/cherry/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+With the vast number of courses on offer at the University of Illinois and the wide variation in average GPA, instructor quality, prereqs, and number of GenEds fulfilled, picking the best course to take is hard.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Class-Optimizer allows any student to select a personalized optimization strategy for picking the best course for your graduation needs. The student simply ranks their priorities according to their personal preferences like so:
 
-### Markdown
+Maximize the following priorities (ranked)
+1. the number of previously unfulfilled GenEds met is maximized
+2. the average GPA is maximized
+3. the average rate my professor score is maximized
+subject to:
+- no class before 11 AM.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/open-source-at-illinois/cherry/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+and the optimizer will use [constrained optimization](https://en.wikipedia.org/wiki/Constrained_optimization) to provide the top classes that fit the hard and soft constraints.
