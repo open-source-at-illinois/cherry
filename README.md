@@ -8,6 +8,7 @@ Maximize the following priorities (ranked)
 1. the number of previously unfulfilled GenEds met is maximized
 2. the average GPA is maximized
 3. the average rate my professor score is maximized
+
 subject to:
 - no class before 11 AM.
 
