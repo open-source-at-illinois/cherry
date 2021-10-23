@@ -1,4 +1,5 @@
 import React from "react";
+import SliderBox from "../components/Slider";
 
 const HomePage = () => {
     return (
@@ -6,6 +7,7 @@ const HomePage = () => {
             <div>
                 Cherry Components go here
             </div>
+            <SliderBox/>
         </>
     )
 }
