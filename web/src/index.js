@@ -4,11 +4,31 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter as Router} from "react-router-dom"
+import Container from '@mui/material/Container';
+import NavBar from './components/NavBar';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const themeOptions = createTheme ({
+  palette: {
+    type: 'light',
+    primary: {
+      main: '#3f51b5',
+    },
+    secondary: {
+      main: '#f50057',
+    },
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
+    <ThemeProvider theme={themeOptions}>
+      <NavBar/>
+      <Container>
       <App />
+      </Container>
+      </ThemeProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')
