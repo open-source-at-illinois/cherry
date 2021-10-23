@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import os
 
 url = "https://www.ratemyprofessors.com/graphql"
 headers = {"Authorization": "Basic dGVzdDp0ZXN0"}
@@ -13,7 +14,6 @@ payload = {
       ...TeacherSearchPagination_search_1jWD3d
     }
   }
-
   fragment TeacherSearchPagination_search_1jWD3d on newSearch {
   teachers(query: $query) {
       resultCount
@@ -44,7 +44,6 @@ payload = {
       ...TeacherSearchPagination_search_1jWD3d
     }
   }
-
   fragment TeacherSearchPagination_search_1jWD3d on newSearch {
     teachers(query: $query, first: $count) {
       edges {
@@ -56,19 +55,16 @@ payload = {
       resultCount
     }
   }
-
   fragment TeacherCard_teacher on Teacher {
     avgRating
     numRatings
     ...CardFeedback_teacher
     ...CardName_teacher
   }
-
   fragment CardFeedback_teacher on Teacher {
     wouldTakeAgainPercent
     avgDifficulty
   }
-
   fragment CardName_teacher on Teacher {
     firstName
     lastName
@@ -92,6 +88,9 @@ data_formatted = []
 for entry in data_list:
   data_formatted.append(entry['node'])
 
-pd.DataFrame(data_formatted).to_csv('data.csv')
+if not os.path.isdir('./ratemyprofessor'):
+    os.mkdir('./ratemyprofessor')
+
+pd.DataFrame(data_formatted).to_csv('./ratemyprofessor/data.csv')
 
 print('The data has been saved to data.csv!')
