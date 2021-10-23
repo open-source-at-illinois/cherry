@@ -1,4 +1,5 @@
 import React from "react";
+import CourseList from '../components/CourseList';
 
 const HomePage = () => {
     return (
@@ -6,6 +7,7 @@ const HomePage = () => {
             <div>
                 Cherry Components go here
             </div>
+            <CourseList/>
         </>
     )
 }
