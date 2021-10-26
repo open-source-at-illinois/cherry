@@ -1,23 +1,17 @@
 import React from "react";
-<<<<<<< HEAD
 import SliderBox from "../components/Slider";
-=======
 import CourseList from '../components/CourseList';
->>>>>>> acf2cfb24c27d1fbb604209411ad7ee4f7a5ae8e
+import { Grid } from "@mui/material";
 
 const HomePage = () => {
     return (
         <>
-            <div>
-                Cherry Components go here
-            </div>
-<<<<<<< HEAD
-            <SliderBox/>
-=======
-            <CourseList/>
->>>>>>> acf2cfb24c27d1fbb604209411ad7ee4f7a5ae8e
+            <Grid container>
+                <Grid item><SliderBox /></Grid>
+                <Grid item><CourseList /></Grid>
+            </Grid>
+
         </>
     )
 }
-
 export default HomePage;
