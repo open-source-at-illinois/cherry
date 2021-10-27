@@ -15,4 +15,3 @@ pip install poetry
 poetry shell
 flask run
 ```
-
