@@ -12,11 +12,11 @@ function createData(title, gpa, rmp, cat) {
 }
 
 const rows = [
-    createData('ANTH 279 Economy, Business & Society', 'No data', 3.1, 2),
-    createData('REL 286 Introduction to Hinduism', 3.65, 2.8, 2),
-    createData('PORT 150 Writing Brazilians into the U.S.', 'No data', 'No ratings', 2),
-    createData('ECON 102 Microeconomic Principles', 3.45, 4.5, 1),
-    createData('THEA 101 Introduction to Theatre Arts', 3.69, 4.8, 1),
+    createData('ANTH 279: Economy, Business & Society', 'No data', 3.1, 2),
+    createData('REL 286: Introduction to Hinduism', 3.65, 2.8, 2),
+    createData('PORT 150: Writing Brazilians into the U.S.', 'No data', 'No ratings', 2),
+    createData('ECON 102: Microeconomic Principles', 3.45, 4.5, 1),
+    createData('THEA 101: Introduction to Theatre Arts', 3.69, 4.8, 1),
 ];
 
 const CourseList = (props) => {
