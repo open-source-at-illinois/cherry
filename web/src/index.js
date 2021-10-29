@@ -9,18 +9,10 @@ import NavBar from './components/NavBar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const themeOptions = createTheme ({
-  palette: {
-    type: 'light',
-    primary: {
-      main: '#0E0063',
-    },
-    secondary: {
-      main: '#f50057',
-    },
-  },
   typography: {
     fontFamily: [
       'Saira',
+      'Saira Condensed', 
     ].join(','),
   },
 });

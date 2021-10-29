@@ -1,14 +1,20 @@
 import React from "react";
-import SliderBox from "../components/Slider";
+import Preferences from "../components/Preferences";
 import CourseList from '../components/CourseList';
 import { Grid } from "@mui/material";
 
 const HomePage = () => {
+    const containerStyle = {
+        padding: 3,
+    };
+    const itemStyle = {
+        padding: 1,
+    };
     return (
         <>
-            <Grid container>
-                <Grid item><SliderBox /></Grid>
-                <Grid item><CourseList /></Grid>
+            <Grid container sx={containerStyle}>
+                <Grid item sx={itemStyle}><Preferences /></Grid>
+                <Grid item sx={itemStyle}><CourseList /></Grid>
             </Grid>
 
         </>

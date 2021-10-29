@@ -22,9 +22,6 @@ const rows = [
 const CourseList = (props) => {
     return (
         <>
-            <div>
-                List of Cherry courses!
-            </div>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                     <TableHead>
