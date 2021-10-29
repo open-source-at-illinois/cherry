@@ -10,7 +10,7 @@ const SliderBox = (props) => {
                 <CardContent>
                     <SliderComponent label='Rate My Prof' defaultValue={30} min={10} max={100} step={10} />
                     <SliderComponent label='GPA' defaultValue={3.0} min={0} max={4} step={0.1} />
-                </CardContent>    
+                </CardContent>
             </Card>
         </>
     )

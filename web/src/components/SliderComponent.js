@@ -20,7 +20,7 @@ const SliderComponent = (props) => {
                         min={props.min}
                         max={props.max}
                     />
-                </CardContent>    
+                </CardContent>
             </Card>
         </>
     )
