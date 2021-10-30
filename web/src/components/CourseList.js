@@ -174,7 +174,6 @@ const rows = [
     createData('THEA 101: Introduction to Theatre Arts', 3.69, 4.8, 1),
 ];
 
-
   export default function CollapsibleTable() {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
