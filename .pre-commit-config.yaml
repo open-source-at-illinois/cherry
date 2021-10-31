@@ -3,14 +3,12 @@ repos:
     rev: v2.3.0
     hooks:
     -   id: check-yaml
-        exclude: ^backend/html/
     -   id: end-of-file-fixer
-        exclude: ^backend/html/
     -   id: trailing-whitespace
-        exclude: ^backend/html/
 
 -   repo: https://github.com/psf/black
     rev: 21.9b0
     hooks:
     -   id: black
-        exclude: ^backend/html/
+
+exclude: ^backend/html/
