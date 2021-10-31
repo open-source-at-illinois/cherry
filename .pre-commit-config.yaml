@@ -7,8 +7,8 @@ repos:
     -   id: trailing-whitespace
 
 -   repo: .
-    rev: 68f5c56b4bc7ac816d339c98d5b4b33bd0c4463d
+    rev: f3820aadf099b2e7d79021bb4a6e6e8133e7b659
     hooks:
     -   id: pdoc
 
-exclude: ^backend/html/
+exclude: ^backend/docs/
