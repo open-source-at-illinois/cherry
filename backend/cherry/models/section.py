@@ -13,7 +13,7 @@ class Section(Course):
         name (str): The name of the course. E.g. `Intro Asian American Studies`.
         section_id (str): The section identifier for each class. E.g. `AD1`.
         course_id (str): The unique identifier for each course, E.g. `AAS 100`.
-        instructor (cherry.backend.Instructor): The instructor of the class.
+        instructor (Instructor): The instructor of the class.
         credits (int): The number of credits given for taking the class. E.g. `3`
         online (bool): Is the course online or in-person?
         geneds (List[str]): A list of the geneds the class fulfills.
