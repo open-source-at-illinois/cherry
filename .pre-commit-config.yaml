@@ -6,9 +6,9 @@ repos:
     -   id: end-of-file-fixer
     -   id: trailing-whitespace
 
--   repo: https://github.com/psf/black
-    rev: 21.9b0
+-   repo: .
+    rev: 68f5c56b4bc7ac816d339c98d5b4b33bd0c4463d
     hooks:
-    -   id: black
+    -   id: pdoc
 
 exclude: ^backend/html/

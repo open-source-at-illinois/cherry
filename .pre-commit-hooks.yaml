@@ -1,0 +1,7 @@
+-   id: pdoc
+    name: generate documentation
+    description: runs pdoc to auto-generate docs.
+    entry: pdoc3 --html -o backend/docs backend/cherry --force
+    language: system
+    pass_filenames: false
+    types: [python]
