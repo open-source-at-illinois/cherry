@@ -7,13 +7,13 @@ import { Typography } from "@mui/material";
 const SliderBox = (props) => {
     return (
         <>
-            <Card sx={{ minWidth: 275 }}>
+            <Card sx={{ minWidth: 275, backgroundColor: "#f5f5f5" }} variant="outlined">
                 <Typography variant="h5" sx={{padding:1}}>
                     Preferences
                 </Typography>
                 <CardContent>
-                    <SliderComponent label='Rate My Professor' defaultValue={30} min={10} max={100} step={10} />
-                    <SliderComponent label='Average GPA' defaultValue={3.0} min={0} max={4} step={0.1} />
+                    <SliderComponent label='Rate My Professor' defaultValue={30} min={0} max={99} step={10} />
+                    <SliderComponent label='Average GPA' defaultValue={30} min={0} max={99} step={10} />
                 </CardContent>
             </Card>
         </>

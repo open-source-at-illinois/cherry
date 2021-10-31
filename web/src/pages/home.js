@@ -5,7 +5,7 @@ import { Grid } from "@mui/material";
 
 const HomePage = () => {
     const containerStyle = {
-        padding: 3,
+        padding: 0,
     };
     const itemStyle = {
         padding: 1,
@@ -16,7 +16,6 @@ const HomePage = () => {
                 <Grid item sx={itemStyle}><Preferences /></Grid>
                 <Grid item sx={itemStyle}><CourseList /></Grid>
             </Grid>
-
         </>
     )
 }

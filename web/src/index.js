@@ -3,16 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter as Router} from "react-router-dom"
+import { BrowserRouter as Router } from "react-router-dom"
 import Container from '@mui/material/Container';
 import NavBar from './components/NavBar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const themeOptions = createTheme ({
+const themeOptions = createTheme({
   typography: {
     fontFamily: [
       'Saira',
-      'Saira Condensed', 
+      'Saira Condensed',
     ].join(','),
   },
 });
@@ -20,11 +20,11 @@ const themeOptions = createTheme ({
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-    <ThemeProvider theme={themeOptions}>
-      <NavBar/>
-      <Container>
-      <App />
-      </Container>
+      <ThemeProvider theme={themeOptions}>
+        <NavBar />
+        <div style={{ paddingLeft: "50px", paddingTop:"20px" }}>
+          <App />
+        </div>
       </ThemeProvider>
     </Router>
   </React.StrictMode>,
