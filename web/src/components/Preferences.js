@@ -2,7 +2,8 @@ import React from "react";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import SliderComponent from "./SliderComponent";
-import { Typography } from "@mui/material";
+import { Checkbox, Typography } from "@mui/material";
+import GenEdSelector from "./GenEdSelector";
 
 const SliderBox = (props) => {
     return (
@@ -15,6 +16,7 @@ const SliderBox = (props) => {
                     <SliderComponent label='Rate My Professor' defaultValue={30} min={0} max={99} step={10} />
                     <SliderComponent label='Average GPA' defaultValue={30} min={0} max={99} step={10} />
                 </CardContent>
+                <GenEdSelector/>
             </Card>
         </>
     )
