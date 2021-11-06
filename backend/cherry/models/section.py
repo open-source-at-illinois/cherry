@@ -22,6 +22,7 @@ class Section(Course):
         is_open (Optional[bool]): The status of the course's registration.
         location (Optional[str]): The location of the class.
     """
+    _unique_id: str = "course_id"
 
     crn: int
     section_id: str

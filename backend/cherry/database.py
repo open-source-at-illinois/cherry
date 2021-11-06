@@ -1,0 +1,52 @@
+import pymongo
+from pydantic import BaseModel
+from typing import Any
+
+class Database():
+    def __init__(self, connection_string: str, database: str = "cherry"):
+        self.client = pymongo.MongoClient(connection_string)[database]
+
+    def __getitem__(self, collection: str) -> Any:
+        return Collection(self.client[collection])
+
+class Collection():
+    def __init__(self, collection):
+        self.collection = collection
+
+    def all(self):
+        """
+        Returns an iterable of all the items in the collection
+        """
+        for x in self.collection.find():
+            yield x
+
+    def insert(self, object: BaseModel):
+        """
+        Insert a pydantic object into the collection
+        """
+        return self.collection.insert_one(dict(object))
+
+    def replace(self, object: BaseModel, upsert = False):
+        """
+        Replaces/updates a pydantic object in the collection
+        """
+        unique_attr = object["_unique_id"]
+        return self.collection.replace_one({unique_attr: object[unique_attr]}, dict(object))
+
+    def find(self, *args, **kwargs):
+        """
+        Finds an object in the collection
+        """
+        results =  self.collection.find(*args, **kwargs)
+        for result in result:
+            return result
+
+    def find_one(self, *args, **kwargs):
+        """
+        Finds an object in the collection
+        """
+        results = list(self.collection.find(*args, **kwargs))
+        if len(results) == 1:
+            return results[0]
+
+        raise NameError

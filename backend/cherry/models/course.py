@@ -13,6 +13,7 @@ class Course(BaseModel):
         online (bool): Is the course online or in-person?
         geneds (List[str]): A list of the geneds the class fulfills.
     """
+    _unique_id: str = "course_id"
 
     name: str
     course_id: str
