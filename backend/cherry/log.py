@@ -37,7 +37,7 @@ class LogUtil:
             mkdir(DIR_PATH)
         if not path.exists(REL_PATH):
             with open(REL_PATH, "a") as f:
-                content = "gpa,requirements,created_at\n"
+                content = "gpa,rmp,requirements,created_at\n"
                 f.write(content)
 
         with open(REL_PATH, "a") as f:
