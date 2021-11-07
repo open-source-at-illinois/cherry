@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import re
 import os
 import sys
+import numpy as np
 from tqdm import tqdm
 
 def get_course_number(soup):
@@ -37,6 +38,8 @@ def get_geneds(soup):
     for elem in soup(text=re.compile(r'.General Education.')):
         geneds = [i.text for i in elem.parent.parent.find_all("p")]
         geneds = ';'.join(geneds)
+    if geneds is None:
+        geneds = "None"
     return geneds
 
 def get_all_course_data(soup):
@@ -46,14 +49,12 @@ def get_all_course_data(soup):
         return []
     course_num = get_course_number(soup)
     course_name = get_course_name(soup)
-    credits = get_credit_hours(soup)        
+    credits = get_credit_hours(soup)
     geneds = get_geneds(soup)
     
     # The only table on the page is the one with section info
     section_table = soup.find("table")
     labels = [i.text for i in section_table.find_all("th")]
-    if "Subject Code" in labels:
-        print(course_num)
     non_header_rows = section_table.find_all("tr")[1:]
     for row in non_header_rows:
         skip = False
@@ -63,13 +64,23 @@ def get_all_course_data(soup):
             if "Degree Notes:" in dat.text: # don't want row with "degree notes" (repetitive data about gen eds)
                 skip = True
                 continue
+            tag_class = dat.get("class")
+            if tag_class is None or "class-summary" not in tag_class: # skip entries that aren't about class sections
+                if dat.text != '':
+                    skip = True
+                continue
             entry[labels[counter]] = dat.text.strip().replace("\n", "")
         if skip: # if the current row is a "degree notes" column don't create an entry
             continue
-        entry["Course Number"] = course_num
-        entry["Course Name"] = course_name
-        entry["Number of Credits"] = credits
-        entry["GenEds Satisfied"] = geneds
+        entry["CourseNumber"] = course_num
+        entry["CourseName"] = course_name
+        entry["NumberOfCredits"] = credits
+        entry["GenEdsSatisfied"] = geneds
+        if "CRN" not in entry: # handle multiple table rows used for one section
+            last_entry = course_data[-1]
+            if entry['Section'] == last_entry['Section'] and entry['CourseNumber'] == last_entry['CourseNumber'] and entry['CourseName'] == last_entry['CourseName']:
+                entry['CRN'] = last_entry['CRN']
+                entry['Status'] = last_entry['Status']
         course_data.append(entry)
     return course_data
 
@@ -96,12 +107,12 @@ if __name__ == "__main__":
     
     # read/process html files
     course_data = []
-    for (curr_dir, subdirs, filenames) in tqdm(list(os.walk(root_dir)), desc="Working..."):
+    for (curr_dir, subdirs, filenames) in tqdm(list(os.walk("./course_data"))):
         for f in filenames:
             path = os.path.join(curr_dir, f)
             if not path.endswith("html"):
                 continue
-            if path.count('/') + path.count('\\') < 4:
+            if not f.replace('.html', '').isdigit():
                 continue
             with open(path) as fin:
                 try:
