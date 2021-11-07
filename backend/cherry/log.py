@@ -1,15 +1,31 @@
 from cherry import app
+from cherry.models.user_preferences import UserPreferences
 
 import json
 from os import path
 from os import mkdir
 from datetime import datetime as dt
-from flask import request, Response
+
+from flask import request
+from flask.wrappers import Response
+from pydantic import ValidationError
 
 
 class LogUtil:
+    # format pydantic errors
+    def format_error(self, error_log):
+        errors = {"errors": []}
+        for e in error_log:
+            errors["errors"].append(f"{e['loc'][0]} {e['msg']}")
+        return errors
+
     # store data in txt filename for logging
     def store_data(self, data):
+        try:
+            prefs = UserPreferences(**data)
+        except ValidationError as e:
+            return e.errors()
+
         today = dt.today()
         DIR_NAME = "logs"
         BASE_DIR = path.dirname(__file__)
@@ -25,21 +41,11 @@ class LogUtil:
                 f.write(content)
 
         with open(REL_PATH, "a") as f:
-            gpa = data["gpa"]
-            requirements = data["requirements"]
             military_now = dt.now().strftime("%H:%M:%S")
-            data = f"{gpa},{requirements},{military_now}\n"
+            data = f"{prefs.gpa},{prefs.rmp},{prefs.requirements},{military_now}\n"
             f.write(data)
 
-    # make sure all user properties exist in data
-    def is_valid(self, data):
-        if data is None:
-            return False
-        properties = ["gpa", "requirements"]
-        for p in properties:
-            if p not in data:
-                return False
-        return True
+        return [prefs.dict()]
 
 
 @app.route("/log", methods=["POST"])
@@ -51,14 +57,13 @@ def log():
     util = LogUtil()
 
     mimetype = "application/json"
-    if not util.is_valid(data):
-        response = {"message": "Data invalid."}
+    res = util.store_data(data)  # res = prefs if success, else error_log
+
+    if "type" in res[0]:  # error_log
+        res = util.format_error(res)
         status_code = 400
     else:
-        util.store_data(data)
-
-        response = {"message": "Log stored."}
         status_code = 200
 
-    return Response(response=json.dumps(response), status=status_code,
+    return Response(response=json.dumps(res), status=status_code,
                     mimetype=mimetype)
