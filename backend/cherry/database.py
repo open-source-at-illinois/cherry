@@ -25,6 +25,13 @@ class Collection():
         Insert a pydantic object into the collection
         """
         return self.collection.insert_one(dict(object))
+    
+    def insert_many(self, objects: [BaseModel]):
+        """
+        Insert a list of pydantic objects into the collection
+        """
+        dict_obj = map(dict, objects)
+        return self.collection.insert_many(dict_obj)
 
     def replace(self, object: BaseModel, upsert = False):
         """
@@ -38,7 +45,7 @@ class Collection():
         Finds an object in the collection
         """
         results =  self.collection.find(*args, **kwargs)
-        for result in result:
+        for result in results:
             return result
 
     def find_one(self, *args, **kwargs):
