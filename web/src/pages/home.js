@@ -4,6 +4,8 @@ import CourseList from '../components/CourseList';
 import { Grid } from "@mui/material";
 
 const HomePage = () => {
+    const [preferences, setPreferences] = React.useState({});
+
     const containerStyle = {
         padding: 0,
     };
@@ -13,8 +15,12 @@ const HomePage = () => {
     return (
         <>
             <Grid container sx={containerStyle}>
-                <Grid item sx={itemStyle}><Preferences /></Grid>
-                <Grid item sx={itemStyle}><CourseList /></Grid>
+                <Grid item sx={itemStyle}>
+                    <Preferences preferences={preferences} setPreferences={setPreferences}/>
+                </Grid>
+                <Grid item sx={itemStyle}>
+                    <CourseList />
+                </Grid>
             </Grid>
         </>
     )

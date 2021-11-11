@@ -9,6 +9,7 @@ class Instructor(BaseModel):
     Attributes:
         name (str): The name of the instructor.
     """
+    _unique_id: str = "course_id"
 
     name: str
 
