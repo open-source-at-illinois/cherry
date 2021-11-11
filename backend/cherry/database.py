@@ -38,7 +38,7 @@ class Collection():
         Finds an object in the collection
         """
         results =  self.collection.find(*args, **kwargs)
-        for result in result:
+        for result in results:
             return result
 
     def find_one(self, *args, **kwargs):
