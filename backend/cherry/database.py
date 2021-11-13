@@ -1,6 +1,13 @@
 import pymongo
 from pydantic import BaseModel
-from typing import Any
+from typing import Any, List
+from dotenv import load_dotenv
+import os
+
+def load_db():
+    load_dotenv()
+    db = Database(os.environ.get('connection_string'))
+    return db
 
 class Database():
     def __init__(self, connection_string: str, database: str = "cherry"):
@@ -25,8 +32,8 @@ class Collection():
         Insert a pydantic object into the collection
         """
         return self.collection.insert_one(dict(object))
-    
-    def insert_many(self, objects: [BaseModel]):
+
+    def insert_many(self, objects: List[BaseModel]):
         """
         Insert a list of pydantic objects into the collection
         """
