@@ -1,27 +1,50 @@
-.image123 {
+.container {
+    display: flex;
+    flex-direction: row;
+    margin-right: 50px;
+    margin-top: 50px;
+    padding: 10px;
+}
+
+.desc_container {   
+    margin-top: 30px;
+    max-width: 500px;
+}
+
+.description {
+    font-size: 16px;
+    font-family: "saira";
+}
+
+.img_container {
+    display: flex;
+    flex-direction: column;
     flex: 1;
+    align-items: center;
+}
+
+.image {
     width: 500px;
     border: solid 3px #FFFFFF;
     border-radius: 3px;
-    /* padding-bottom: 10px; */
 }
 
-.image123:hover {
+.image:hover {
     border: solid 3px #0E0063;
     border-radius: 3px; 
     cursor: pointer; 
 }
 
-.container {
-    display: flex;
-    flex-direction: row;
-    /* border: solid 1px blue; */
-    margin-right: 50px;
-    margin-top: 50px;
-    padding: 10px
+.image_popup {
+    flex: 1;
+    width: 800px;
 }
 
-.img_container {
-    flex: 1;
+@media (max-width: 1200px) {
+    .container {
+        flex-direction: column;
+    }
+    .img_container {
+        padding-bottom: 50px;
+    }
 }
-    

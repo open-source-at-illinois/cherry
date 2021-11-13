@@ -1,19 +1,20 @@
-import { textAlign } from "@mui/system";
 import React from "react";
 import ModalUnstyled from '@mui/core/ModalUnstyled';
 import { styled, Box } from '@mui/system';
+import styles from './analytics.module.css';
 import Image1 from "../images/Average_Difficulty_vs_Number_of_Instructors_Without_0.png";
 import Image2 from "../images/Average_Rating_vs_Number_of_Instructors_Without_0.png";
-import styles from './analytics.module.css';
 
 const AnalyticsPage = () => {
 
     const [open, setOpen] = React.useState(false);
     const [popupImage, setPopupImage] = React.useState(Image1);
+
     const handleOpen = (selectedImage) => { 
         setPopupImage(selectedImage);
         setOpen(true); 
     };
+
     const handleClose = () => setOpen(false);
 
     const StyledModal = styled(ModalUnstyled)`
@@ -41,37 +42,9 @@ const AnalyticsPage = () => {
 
     const style = {
         bgcolor: 'background.paper',
-        border: '2px solid #000',
+        border: '3px solid #0E0063',
+        borderRadius: '5px',
     };
-
-    const image = {
-        flex: "1",
-        width: "500px",
-        cursor: "pointer",
-        // border: "solid 1px red"
-        '&:hover': {
-            border: "solid 1px red",
-            cursor: "pointer"
-        },
-
-    }
-    const image_popup = {
-        flex: "1",
-        width: "800px",
-    }
-
-
-    const desc_container = {
-        flex: "1",
-        marginTop: "30px"
-        // border: "solid 2px green",
-        // textAlign: "left"
-    }
-    const description = {
-        fontSize: 14
-    }
-
-
 
     return (
         <>
@@ -79,35 +52,42 @@ const AnalyticsPage = () => {
                 <div className={styles.img_container}>
                     <div >
                         <img
-                            src={Image1}
-                            // style={img1clicked ? styles.infoIcon : ''}
-                            alt="info"
-                            className={styles.image123}
-                            onClick={() => handleOpen(Image1)}
-                        />
-                    </div>
-                    <div style={desc_container}>
-                        <span style={description}>Notice that the graph does this shit</span>
-                    </div>
-                </div>
-                <div className={styles.img_container}>
-                    <div >
-                        <img
                             src={Image2}
-                            // style={img1clicked ? styles.infoIcon : ''}
-                            alt="info"
-                            className={styles.image123}
+                            alt="Graph 2"
+                            className={styles.image}
                             onClick={() => handleOpen(Image2)}
                         />
                     </div>
-                    <div style={desc_container}>
-                        <span style={description}>Notice that the graph does this shit</span>
+                    <div className={styles.desc_container}>
+                        <span className={styles.description}>This graph displays the number of instructors versus the average rating 
+                        of the instructors as provided by RateMyProfessors. The graph is an increasing graph with expected increases 
+                        at intervals of 0.5, since people use rating systems with intervals of 0.5 instead of decimal values. his 
+                        pattern in the graph supports why the RateMyProfessors data is accurate and can be used as a good measure of 
+                        an instructors teaching skills.</span>
+                    </div>
+                </div>  
+
+                <div className={styles.img_container}>
+                    <div >
+                        <img
+                            src={Image1}
+                            alt="Graph 1"
+                            className={styles.image}
+                            onClick={() => handleOpen(Image1)}
+                        />
+                    </div>
+                    <div className={styles.desc_container}>
+                        <span className={styles.description}>This graph displays the number of instructors versus the average difficulty
+                         of the instructors as provided by RateMyProfessors. The graph approximately follows a normal distribution graph
+                          - higher values in the middle and approaching zero at the extrema. The few exception to this pattern are at the
+                           whole numbers values, which is to be expected since most people rate professors by whole numbers rather than 
+                           using decimal values. This pattern in the graph supports why the RateMyProfessors data is accurate and can be 
+                           used as a good measure of an instructors difficulty.</span>
                     </div>
                 </div>
 
             </div>
             <StyledModal
-
                 open={open}
                 onClose={handleClose}
                 BackdropComponent={Backdrop}
@@ -115,13 +95,10 @@ const AnalyticsPage = () => {
                 <Box sx={style}>
                     <img
                         src={popupImage}
-                        // style={img1clicked ? styles.infoIcon : ''}
-                        alt="info"
-                        style={image_popup}
-                        onClick={handleOpen}
+                        alt="Popup Image"
+                        className={styles.image_popup}
                     />
                 </Box>
-
             </StyledModal>
         </>
     )
