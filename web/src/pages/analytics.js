@@ -9,8 +9,11 @@ import styles from './analytics.module.css';
 const AnalyticsPage = () => {
 
     const [open, setOpen] = React.useState(false);
-    const [popupImage, setPopupImage] = React.useState();
-    const handleOpen = () => setOpen(true);
+    const [popupImage, setPopupImage] = React.useState(Image1);
+    const handleOpen = (selectedImage) => { 
+        setPopupImage(selectedImage);
+        setOpen(true); 
+    };
     const handleClose = () => setOpen(false);
 
     const StyledModal = styled(ModalUnstyled)`
@@ -37,27 +40,27 @@ const AnalyticsPage = () => {
     `;
 
     const style = {
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    };  
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+    };
 
     const image = {
         flex: "1",
-        width: "500px",  
-        cursor: "pointer",       
+        width: "500px",
+        cursor: "pointer",
         // border: "solid 1px red"
         '&:hover': {
             border: "solid 1px red",
             cursor: "pointer"
-       }, 
+        },
 
     }
     const image_popup = {
         flex: "1",
         width: "800px",
     }
-    
-    
+
+
     const desc_container = {
         flex: "1",
         marginTop: "30px"
@@ -72,52 +75,52 @@ const AnalyticsPage = () => {
 
     return (
         <>
-            <div  className={styles.container}>
-                <div className = {styles.img_container}>
+            <div className={styles.container}>
+                <div className={styles.img_container}>
                     <div >
                         <img
                             src={Image1}
                             // style={img1clicked ? styles.infoIcon : ''}
                             alt="info"
-                            className = {styles.image123}
-                            onClick={handleOpen}
+                            className={styles.image123}
+                            onClick={() => handleOpen(Image1)}
                         />
                     </div>
                     <div style={desc_container}>
-                        <span style = {description}>Notice that the graph does this shit</span>
+                        <span style={description}>Notice that the graph does this shit</span>
                     </div>
                 </div>
-                <div className = {styles.img_container}>
+                <div className={styles.img_container}>
                     <div >
                         <img
                             src={Image2}
                             // style={img1clicked ? styles.infoIcon : ''}
                             alt="info"
-                            className = {styles.image123}
-                            onClick={handleOpen}
+                            className={styles.image123}
+                            onClick={() => handleOpen(Image2)}
                         />
                     </div>
                     <div style={desc_container}>
-                        <span style = {description}>Notice that the graph does this shit</span>
+                        <span style={description}>Notice that the graph does this shit</span>
                     </div>
                 </div>
 
             </div>
             <StyledModal
 
-            open={open}
-            onClose={handleClose}
-            BackdropComponent={Backdrop}
+                open={open}
+                onClose={handleClose}
+                BackdropComponent={Backdrop}
             >
                 <Box sx={style}>
-                        <img
-                            src={Image1}
-                            // style={img1clicked ? styles.infoIcon : ''}
-                            alt="info"
-                            style = {image_popup}
-                            onClick={handleOpen}
-                        />
-        </Box>
+                    <img
+                        src={popupImage}
+                        // style={img1clicked ? styles.infoIcon : ''}
+                        alt="info"
+                        style={image_popup}
+                        onClick={handleOpen}
+                    />
+                </Box>
 
             </StyledModal>
         </>
