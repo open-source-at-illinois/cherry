@@ -27,10 +27,53 @@
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">import typer
+import pandas as pd
 import cherry.database as database
+from cherry.models.instructor import Instructor
+from thefuzz import process
 
-def main(data: str = &#34;data/courses/ratemyprofessor/data.csv&#34;):
+def main(filename: str = &#34;../data/courses/ratemyprofessor/data.csv&#34;):
     db = database.load_db()
+    data = pd.read_csv(filename)
+
+    instructors = set()
+
+    for section in db[&#34;sections&#34;].all():
+        try:
+            instructor_name = [x.strip() for x in section[&#34;instructor&#34;].split(&#34;,&#34;)]
+        except AttributeError:
+            print(section[&#34;instructor&#34;])
+
+        instructor_name.insert(0, instructor_name[-1])
+        del instructor_name[-1]
+
+        first_name_mask = data[&#34;firstName&#34;].apply(lambda x: x.lower().startswith(instructor_name[0].lower()))
+        first_name_matches = data[first_name_mask]
+        last_name_best = process.extractOne(instructor_name[-1], first_name_matches[&#34;lastName&#34;])
+
+        if last_name_best and last_name_best[1] &gt;= 90:
+            instructor_match = first_name_matches[first_name_matches[&#34;lastName&#34;] == last_name_best[0]].replace(&#34;nan&#34;, None)
+
+            if len(instructor_match):
+                try:
+                    instructor = Instructor(
+                        name=section[&#34;instructor&#34;],
+                        first_name = instructor_name[0],
+                        middle_name = instructor_name[1],
+                        last_name = instructor_name[2],
+                        average_rating = instructor_match[&#34;avgRating&#34;],
+                        average_difficulty = instructor_match[&#34;avgDifficulty&#34;],
+                        num_reviews = instructor_match[&#34;numRatings&#34;],
+                        would_take_again = instructor_match[&#34;wouldTakeAgainPercent&#34;]
+                    )
+                    instructors.add(instructor)
+                    print(instructor_name, instructor_match)
+                except:
+                    pass
+                    # print(instructor_name, instructor_match)
+            else:
+                pass
+                # print(instructor_name)
 
 
 if __name__ == &#34;__main__&#34;:
@@ -45,7 +88,7 @@ if __name__ == &#34;__main__&#34;:
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="cherry.processing.rmp.main"><code class="name flex">
-<span>def <span class="ident">main</span></span>(<span>data: str = 'data/courses/ratemyprofessor/data.csv')</span>
+<span>def <span class="ident">main</span></span>(<span>filename: str = '../data/courses/ratemyprofessor/data.csv')</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -53,8 +96,48 @@ if __name__ == &#34;__main__&#34;:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def main(data: str = &#34;data/courses/ratemyprofessor/data.csv&#34;):
-    db = database.load_db()</code></pre>
+<pre><code class="python">def main(filename: str = &#34;../data/courses/ratemyprofessor/data.csv&#34;):
+    db = database.load_db()
+    data = pd.read_csv(filename)
+
+    instructors = set()
+
+    for section in db[&#34;sections&#34;].all():
+        try:
+            instructor_name = [x.strip() for x in section[&#34;instructor&#34;].split(&#34;,&#34;)]
+        except AttributeError:
+            print(section[&#34;instructor&#34;])
+
+        instructor_name.insert(0, instructor_name[-1])
+        del instructor_name[-1]
+
+        first_name_mask = data[&#34;firstName&#34;].apply(lambda x: x.lower().startswith(instructor_name[0].lower()))
+        first_name_matches = data[first_name_mask]
+        last_name_best = process.extractOne(instructor_name[-1], first_name_matches[&#34;lastName&#34;])
+
+        if last_name_best and last_name_best[1] &gt;= 90:
+            instructor_match = first_name_matches[first_name_matches[&#34;lastName&#34;] == last_name_best[0]].replace(&#34;nan&#34;, None)
+
+            if len(instructor_match):
+                try:
+                    instructor = Instructor(
+                        name=section[&#34;instructor&#34;],
+                        first_name = instructor_name[0],
+                        middle_name = instructor_name[1],
+                        last_name = instructor_name[2],
+                        average_rating = instructor_match[&#34;avgRating&#34;],
+                        average_difficulty = instructor_match[&#34;avgDifficulty&#34;],
+                        num_reviews = instructor_match[&#34;numRatings&#34;],
+                        would_take_again = instructor_match[&#34;wouldTakeAgainPercent&#34;]
+                    )
+                    instructors.add(instructor)
+                    print(instructor_name, instructor_match)
+                except:
+                    pass
+                    # print(instructor_name, instructor_match)
+            else:
+                pass
+                # print(instructor_name)</code></pre>
 </details>
 </dd>
 </dl>

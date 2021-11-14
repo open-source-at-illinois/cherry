@@ -53,7 +53,7 @@ class Collection():
         """
         results =  self.collection.find(*args, **kwargs)
         for result in results:
-            return result
+            yield result
 
     def find_one(self, *args, **kwargs):
         """

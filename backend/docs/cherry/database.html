@@ -81,7 +81,7 @@ class Collection():
         &#34;&#34;&#34;
         results =  self.collection.find(*args, **kwargs)
         for result in results:
-            return result
+            yield result
 
     def find_one(self, *args, **kwargs):
         &#34;&#34;&#34;
@@ -168,7 +168,7 @@ class Collection():
         &#34;&#34;&#34;
         results =  self.collection.find(*args, **kwargs)
         for result in results:
-            return result
+            yield result
 
     def find_one(self, *args, **kwargs):
         &#34;&#34;&#34;
@@ -214,7 +214,7 @@ class Collection():
     &#34;&#34;&#34;
     results =  self.collection.find(*args, **kwargs)
     for result in results:
-        return result</code></pre>
+        yield result</code></pre>
 </details>
 </dd>
 <dt id="cherry.database.Collection.find_one"><code class="name flex">
