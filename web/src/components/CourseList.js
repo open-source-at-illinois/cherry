@@ -11,7 +11,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import TablePagination from '@mui/material/TablePagination';
@@ -38,40 +37,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const columns = [
-    { id: '', label: '', minWidth: 170 },
-    { id: 'title', label: 'Title', minWidth: 170 },
-    { id: 'gpa', label: 'Average GPA', minWidth: 100 },
-    {
-        id: 'rmp',
-        label: 'Rate My Professor',
-        minWidth: 170,
-        align: 'right',
-        format: (value) => value.toLocaleString('en-US'),
-    },
-    {
-        id: 'cat',
-        label: 'Categories Fulfilled',
-        minWidth: 170,
-        align: 'right',
-        format: (value) => value.toLocaleString('en-US'),
-    },
+    { id: '_id', align: 'center', label: '', minWidth: 20 },
+    { id: 'course_id', align: 'center', label: 'Course ID', minWidth: 100 },
+    { id: 'name', align: 'center', label: 'Name', minWidth: 170 },
+    { id: 'credits', align: 'center', label: 'Credits', minWidth: 70 },
+    { id: 'geneds', align: 'center', label: 'Geneds', minWidth: 240 },
 ];
-
-function createData(title, gpa, rmp, cat) {
-    return {
-        title,
-        gpa,
-        rmp,
-        cat,
-        details: [
-            {
-                crn: 123456,
-                hours: 3,
-                type: 'Lecture',
-            },
-        ],
-    };
-}
 
 function Row(props) {
     const { row } = props;
@@ -90,11 +61,11 @@ function Row(props) {
                     </IconButton>
                 </TableCell>
                 <StyledTableCell component="th" scope="row">
-                    {row.title}
+                    {row.course_id}
                 </StyledTableCell>
-                <StyledTableCell align="right">{row.gpa}</StyledTableCell>
-                <StyledTableCell align="right">{row.rmp}</StyledTableCell>
-                <StyledTableCell align="right">{row.cat}</StyledTableCell>
+                <StyledTableCell>{row.name}</StyledTableCell>
+                <StyledTableCell align="center">{row.credits}</StyledTableCell>
+                <StyledTableCell>{row.geneds}</StyledTableCell>
             </StyledTableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={3}>
@@ -111,7 +82,7 @@ function Row(props) {
                                         <StyledTableCell align="right">Schedule-Type</StyledTableCell>
                                     </StyledTableRow>
                                 </TableHead>
-                                <TableBody>
+                                {/* <TableBody>
                                     {row.details.map((detailsRow) => (
                                         <StyledTableRow key={detailsRow.crn}>
                                             <StyledTableCell component="th" scope="row">
@@ -121,7 +92,7 @@ function Row(props) {
                                             <StyledTableCell align="right">{detailsRow.type}</StyledTableCell>
                                         </StyledTableRow>
                                     ))}
-                                </TableBody>
+                                </TableBody> */}
                             </Table>
                         </Box>
                     </Collapse>
@@ -147,36 +118,7 @@ Row.propTypes = {
     }).isRequired,
 };
 
-const rows = [
-    createData('ANTH 279: Economy, Business & Society', 'No data', 3.1, 2),
-    createData('REL 286: Introduction to Hinduism', 3.65, 2.8, 2),
-    createData('PORT 150: Writing Brazilians into the U.S.', 'No data', 'No ratings', 2),
-    createData('ECON 102: Microeconomic Principles', 3.45, 4.5, 1),
-    createData('THEA 101: Introduction to Theatre Arts', 3.69, 4.8, 1),
-    // Commented out because of duplicate key errors on console
-    // createData('ANTH 279: Economy, Business & Society', 'No data', 3.1, 2),
-    // createData('REL 286: Introduction to Hinduism', 3.65, 2.8, 2),
-    // createData('PORT 150: Writing Brazilians into the U.S.', 'No data', 'No ratings', 2),
-    // createData('ECON 102: Microeconomic Principles', 3.45, 4.5, 1),
-    // createData('THEA 101: Introduction to Theatre Arts', 3.69, 4.8, 1),
-    // createData('ANTH 279: Economy, Business & Society', 'No data', 3.1, 2),
-    // createData('REL 286: Introduction to Hinduism', 3.65, 2.8, 2),
-    // createData('PORT 150: Writing Brazilians into the U.S.', 'No data', 'No ratings', 2),
-    // createData('ECON 102: Microeconomic Principles', 3.45, 4.5, 1),
-    // createData('THEA 101: Introduction to Theatre Arts', 3.69, 4.8, 1),
-    // createData('ANTH 279: Economy, Business & Society', 'No data', 3.1, 2),
-    // createData('REL 286: Introduction to Hinduism', 3.65, 2.8, 2),
-    // createData('PORT 150: Writing Brazilians into the U.S.', 'No data', 'No ratings', 2),
-    // createData('ECON 102: Microeconomic Principles', 3.45, 4.5, 1),
-    // createData('THEA 101: Introduction to Theatre Arts', 3.69, 4.8, 1),
-    // createData('ANTH 279: Economy, Business & Society', 'No data', 3.1, 2),
-    // createData('REL 286: Introduction to Hinduism', 3.65, 2.8, 2),
-    // createData('PORT 150: Writing Brazilians into the U.S.', 'No data', 'No ratings', 2),
-    // createData('ECON 102: Microeconomic Principles', 3.45, 4.5, 1),
-    // createData('THEA 101: Introduction to Theatre Arts', 3.69, 4.8, 1),
-];
-
-export default function CollapsibleTable() {
+export default function CollapsibleTable({courses}) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -188,7 +130,7 @@ export default function CollapsibleTable() {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
-
+    console.log(courses);
     return (
         <>
             <TableContainer sx={{ maxHeight: 440 }}>
@@ -207,11 +149,11 @@ export default function CollapsibleTable() {
                         </StyledTableRow>
                     </TableHead>
                     <TableBody>
-                        {rows
+                        {courses
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row) => {
                                 return (
-                                    <Row key={row.title} row={row} />
+                                    <Row key={row._id} row={row} />
                                 );
                             })}
                     </TableBody>
@@ -220,7 +162,7 @@ export default function CollapsibleTable() {
             <TablePagination
                 rowsPerPageOptions={[10, 25, 100]}
                 component="div"
-                count={rows.length}
+                count={courses.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}
