@@ -27,8 +27,12 @@ const AboutPage = () => {
         "contributions": 3
       }]);
     
-    useEffect(() => {
-        // setContributors(GithubService.getContributors());
+    useEffect( () => {
+        const response = GithubService.getContributors();
+        console.log('Contributors', response);
+        response.then(data => {
+            setContributors(data);
+        });
     }, [])
 
     const containerStyle = {
@@ -88,7 +92,7 @@ const AboutPage = () => {
         <Grid sx={contributorStyle}>
             {contributors.map(contributor => 
                     <div>
-                        <img src={contributor.avatar_url} style={contritbutorImg}></img>
+                        <img src={contributor.avatar_url} alt={contributor.login} style={contritbutorImg}></img>
                         {contributor.login}
                     </div>) }
         </Grid>
