@@ -3,6 +3,8 @@ import Preferences from "../components/Preferences";
 import CourseList from '../components/CourseList';
 import { Grid } from "@mui/material";
 import CherryService from "../services/CherryService"
+import CourseTable from '../components/CourseTable';
+
 const HomePage = () => {
     const [preferences, setPreferences] = React.useState({});
 
@@ -15,11 +17,11 @@ const HomePage = () => {
     return (
         <>
             <Grid container sx={containerStyle}>
-                <Grid item sx={itemStyle}>
+                {/* <Grid item sx={itemStyle}>
                     <Preferences preferences={preferences} setPreferences={setPreferences}/>
-                </Grid>
+                </Grid> */}
                 <Grid item sx={itemStyle}>
-                    <CourseList courses={CherryService.optimizeCourses()}/>
+                    <CourseTable/>
                 </Grid>
             </Grid>
         </>
