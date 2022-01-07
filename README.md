@@ -13,3 +13,19 @@ subject to:
 - no class before 11 AM.
 
 and the optimizer will use [constrained optimization](https://en.wikipedia.org/wiki/Constrained_optimization) to provide the top classes that fit the hard and soft constraints.
+
+## Project Charter
+
+### Vision
+
+To help UIUC students plan and schedule their courses according to their varied needs better
+
+### Mission
+
+To create a tool to help students select classes
+
+### Success Criteria
+
+1. Is it better than the current alternatives?
+2. Are we using it to select our own courses?
+3. Are a majority of users are consistently using cherry? 
