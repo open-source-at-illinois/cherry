@@ -18,7 +18,7 @@ const baseUrl = 'https://localhost:5000';
 //     return dummySections;
 // }
 
-const s3Uri = 'http://cherry-static.opensourceatillinois.com';
+const s3Uri = 'https://cherry-static.opensourceatillinois.com';
 
 const getAllCourses = async (params) => {
     const promise = axios.get( params.page ? `${s3Uri}/2021-sp/${params.page}` : `${s3Uri}/2021-sp/0`);
