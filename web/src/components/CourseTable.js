@@ -9,53 +9,85 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
 const columns = [
-  { id: 'name', label: 'Name', minWidth: 170 },
-  { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
-  {
-    id: 'population',
-    label: 'Population',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'size',
-    label: 'Size\u00a0(km\u00b2)',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'density',
-    label: 'Density',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toFixed(2),
-  },
+  { id: 'Subject', label: 'Subject', minWidth: 170 },
+  { id: 'Number', label: 'Number', minWidth: 100 },
+  { id: 'Course Title', label: 'Course Title', minWidth: 170 },
 ];
-
-function createData(name, code, population, size) {
-  const density = population / size;
-  return { name, code, population, size, density };
-}
 
 const rows = [
-  createData('India', 'IN', 1324171354, 3287263),
-  createData('China', 'CN', 1403500365, 9596961),
-  createData('Italy', 'IT', 60483973, 301340),
-  createData('United States', 'US', 327167434, 9833520),
-  createData('Canada', 'CA', 37602103, 9984670),
-  createData('Australia', 'AU', 25475400, 7692024),
-  createData('Germany', 'DE', 83019200, 357578),
-  createData('Ireland', 'IE', 4857000, 70273),
-  createData('Mexico', 'MX', 126577691, 1972550),
-  createData('Japan', 'JP', 126317000, 377973),
-  createData('France', 'FR', 67022000, 640679),
-  createData('United Kingdom', 'GB', 67545757, 242495),
-  createData('Russia', 'RU', 146793744, 17098246),
-  createData('Nigeria', 'NG', 200962417, 923768),
-  createData('Brazil', 'BR', 210147125, 8515767),
-];
+    {
+            "Year": 2018,
+            "Term": "Winter",
+            "YearTerm": "2018-wi",
+            "Subject": "ACE",
+            "Number": 240,
+            "Course Title": "Personal Financial Planning",
+            "Sched Type": "ONL",
+            "A+": 9,
+            "A": 12,
+            "A-": 6,
+            "B+": 6,
+            "B": 6,
+            "B-": 0,
+            "C+": 2,
+            "C": 3,
+            "C-": 1,
+            "D+": 0,
+            "D": 0,
+            "D-": 0,
+            "F": 0,
+            "W": 0,
+            "Primary Instructor": "Stoddard, Paul B"
+        },
+        {
+            "Year": 2018,
+            "Term": "Winter",
+            "YearTerm": "2018-wi",
+            "Subject": "ART",
+            "Number": 100,
+            "Course Title": "Understanding Visual Culture",
+            "Sched Type": "ONL",
+            "A+": 4,
+            "A": 8,
+            "A-": 3,
+            "B+": 5,
+            "B": 4,
+            "B-": 2,
+            "C+": 2,
+            "C": 1,
+            "C-": 0,
+            "D+": 0,
+            "D": 1,
+            "D-": 0,
+            "F": 1,
+            "W": 0,
+            "Primary Instructor": "Burns, Jennifer"
+        },
+        {
+            "Year": 2018,
+            "Term": "Winter",
+            "YearTerm": "2018-wi",
+            "Subject": "ASTR",
+            "Number": 330,
+            "Course Title": "Extraterrestrial Life",
+            "Sched Type": "ONL",
+            "A+": 3,
+            "A": 12,
+            "A-": 1,
+            "B+": 1,
+            "B": 2,
+            "B-": 2,
+            "C+": 0,
+            "C": 0,
+            "C-": 0,
+            "D+": 0,
+            "D": 0,
+            "D-": 0,
+            "F": 0,
+            "W": 0,
+            "Primary Instructor": "Looney, Leslie W"
+        }
+    ]
 
 export default function StickyHeadTable() {
   const [page, setPage] = React.useState(0);
