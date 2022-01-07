@@ -17,11 +17,11 @@ const HomePage = () => {
     return (
         <>
             <Grid container sx={containerStyle}>
-                <Grid item sx={itemStyle}>
+                {/* <Grid item sx={itemStyle}>
                     <Preferences preferences={preferences} setPreferences={setPreferences}/>
-                </Grid>
+                </Grid> */}
                 <Grid item sx={itemStyle}>
-                    <CourseTable></CourseTable>
+                    <CourseTable/>
                 </Grid>
             </Grid>
         </>
