@@ -28,7 +28,10 @@ export default function StickyHeadTable() {
     console.log('useEffect');
     CherryService.getAllCourses({ page: 1 }).then(response => {
       setRows({ 1: response })
-    })
+    });
+    CherryService.getCourseListMeta().then(response => {
+      setRowsCount(response.numberOfCourses);
+    });
   }, []);
 
   const handleChangePage = async (event, newPage) => {
