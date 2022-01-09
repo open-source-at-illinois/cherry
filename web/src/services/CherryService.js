@@ -25,6 +25,11 @@ const getAllCourses = async (params) => {
     return await promise.then(response => response.data);
 }
 
-const CherryService = { getAllCourses };
+const getCourseListMeta = () => {
+    const promise = axios.get(`${s3Uri}/2021-sp/summary`);
+    return promise.then(response => response.data);
+}
+
+const CherryService = { getAllCourses , getCourseListMeta };
 
 export default CherryService;
