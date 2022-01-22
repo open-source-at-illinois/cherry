@@ -6,6 +6,7 @@ import re
 import os
 import tqdm
 import multiprocessing
+from utils import geneds_parse
 
 def get_course_number(soup):
     query = soup.body.find("div", class_="cis-title-wrapper").find("p", class_="cis-section-title")
@@ -35,10 +36,10 @@ def get_credit_hours(soup):
 
 def get_geneds(soup) -> List[str]:
     # getting gen eds satisfied
-    geneds = None
+    geneds = []
     for elem in soup(text=re.compile(r'.General Education.')):
-        geneds = [i.text for i in elem.parent.parent.find_all("p")]
-    return geneds
+        geneds.extend([geneds_parse(i.text) for i in elem.parent.parent.find_all("p")])
+    return [x for x in geneds if x]
 
 def parse_entry(loc: str):
     with open(loc) as fin:
@@ -75,7 +76,7 @@ def parse_entry(loc: str):
         entry["Course Number"] = course_num
         entry["Course Name"] = course_name
         entry["Number of Credits"] = credits
-        entry["GenEds Satisfied"] = geneds
+        entry["geneds"] = geneds
         entry["loc"] = loc
         course_data.append(entry)
     return course_data

@@ -4,9 +4,14 @@ import os
 import dataset
 from write import write_data
 from utils import gpa_calculate
+import explorer
 
 def generate():
     courses = pd.read_csv("data/datasets/gpa/uiuc-gpa-dataset.csv")
+
+    print("Fetching listings . . .")
+    listings = explorer.parse_explorer()
+    print("Listings done!")
 
     if not os.path.isdir("build"):
         os.mkdir("build")
@@ -22,6 +27,10 @@ def generate():
     courses["size"] = course_sizes
     courses = courses.sort_values("GPA", ascending=False)
     courses["GPA"] = courses["GPA"].round(3)
+
+    courses["Course Number"] = courses["Subject"].apply(lambda x: str(x).rstrip()) + " " + courses["Number"].apply(lambda x: str(x).rstrip())
+
+    courses = listings.merge(courses, on="Course Number", how="left")
 
     ## Static builder
     for year in tqdm.tqdm(set(courses["YearTerm"])):

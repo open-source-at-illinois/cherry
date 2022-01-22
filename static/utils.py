@@ -1,3 +1,5 @@
+from typing import Optional
+
 GPA_TABLE = {
     "A+": 4,
     "A": 4,
@@ -14,6 +16,22 @@ GPA_TABLE = {
     "F": 0
 }
 
+GENEDS_TABLE = {
+    'Advanced Composition': "AC",
+    'Composition I': "C",
+    'Cultural Studies - Non-West': "NWC",
+    'Cultural Studies - US Minority': "USMC",
+    'Cultural Studies - Western': "WCC",
+    'Humanities – Hist & Phil': "HA",
+    'Humanities – Lit & Arts': "HA",
+    'Nat Sci & Tech - Life Sciences': "NST",
+    'Nat Sci & Tech - Phys Sciences': "NST",
+    'Quantitative Reasoning I': "QRA",
+    'Quantitative Reasoning II': "QRB",
+    'Social & Beh Sci - Beh Sci': "SBS",
+    'Social & Beh Sci - Soc Sci': "SBS",
+}
+
 def gpa_calculate(row: dict) -> float:
     num_people = 0
     raw_total = 0
@@ -22,3 +40,6 @@ def gpa_calculate(row: dict) -> float:
         raw_total += row[letter] * value
 
     return (raw_total, num_people, raw_total / num_people)
+
+def geneds_parse(gened_string: str) -> Optional[str]:
+    return GENEDS_TABLE.get(gened_string.rstrip())
