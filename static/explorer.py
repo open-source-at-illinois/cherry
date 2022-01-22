@@ -99,10 +99,11 @@ def parse_explorer(data_dir: str = "data/courses/") -> pd.DataFrame:
 
     course_df = pd.DataFrame(data=rows)
 
-    course_df["year"] = df["loc"].apply(lambda x: x.split("/")[-4])
-    course_df["term"] = df["loc"].apply(lambda x: x.split("/")[-3])
-    course_df["dept"] = df["loc"].apply(lambda x: x.split("/")[-2])
-    course_df["course_num"] = df["loc"].apply(lambda x: x.split("/")[-1])
+    course_df["year"] = course_df["loc"].apply(lambda x: x.split("/")[-4])
+    course_df["term"] = course_df["loc"].apply(lambda x: x.split("/")[-3])
+    course_df["dept"] = course_df["loc"].apply(lambda x: x.split("/")[-2])
+    course_df["Course Number"] = course_df["dept"] + " " + course_df["loc"].apply(lambda x: x.split("/")[-1].split(".")[0])
+    course_df["YearTerm"] = course_df["year"].astype(str) + "-" + course_df["term"].apply(lambda x: x[:2])
 
     return course_df
     
