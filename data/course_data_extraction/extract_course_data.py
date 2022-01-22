@@ -53,7 +53,7 @@ def get_all_course_data(soup):
     section_table = soup.find("table")
     labels = [i.text for i in section_table.find_all("th")]
     if "Subject Code" in labels:
-        print(course_num)
+        # print(course_num)
     non_header_rows = section_table.find_all("tr")[1:]
     for row in non_header_rows:
         skip = False
@@ -74,25 +74,8 @@ def get_all_course_data(soup):
     return course_data
 
 if __name__ == "__main__":
-    # user input for data directory
-    # root_dir = input("Root Input Directory: ")
-    # if root_dir == "": # default input data directory
-    #     root_dir = "./course_data"
-    # if not os.path.isdir(root_dir):
-    #     print(f"Input directory \'{root_dir}\' does not exist")
-    #     sys.exit(1)
-    
-    # Files paths in root_dir must have format root_dir/term/subject/course
-    root_dir = "./course_data"
-        
-    # user input for output file name
-    output_path = input("Enter Output Filepath: ")
-    if output_path == "": 
-        output_path = "./all_course_data.csv"
-    if os.path.exists(output_path): # check for overwriting existing file
-        confirmation = input("Overwriting existing file. OK? (Y/N) ")
-        if confirmation.lower() == "n":
-            sys.exit(0)
+    root_dir = "data/courses/"
+    output_path = "./data/courses.csv"
     
     # read/process html files
     course_data = []
