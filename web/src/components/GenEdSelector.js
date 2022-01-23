@@ -4,29 +4,44 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { Card, CardContent } from '@mui/material';
 import { Typography } from '@mui/material';
-
+import { useState } from 'react'
 const label = { inputProps: { 'aria-label': 'Checkbox' } };
 
-const GenEdSelector = () => {
+const GenEdSelector = ({ geneds = {}, setGenEds }) => {
+
+  const genEdIds = {
+    AC: "Advanced Composition",
+    WCC: "Western/Comparative Culture",
+    NWC: "Non-Western Culture",
+    USM: "US Minority Culture",
+    HA: "Humanities and the Arts ",
+    NST: "Natural Science and Technology",
+    QRA: "Quantitative Reasoning II",
+    QRB: "Quantitative Reasoning I",
+    SBS: "Social and Behavioral Sciences",
+  }
+
+  const checkBoxUpdate = (genEdId) => {
+    return (event) => {
+      setGenEds({ ...geneds, [genEdId]: event.target.checked });
+    }
+  }
+
   return (
-    <Card sx={{margin:2}}>
+    <Card sx={{ margin: 2 }}>
       <CardContent>
-      <Typography sx={{ fontSize: 20 }} color="text.primary" gutterBottom>
-        Gen Eds
-      </Typography>
-      <FormGroup>
-      <FormControlLabel control={<Checkbox />} label="Advanced Composition" />
-      <FormControlLabel control={<Checkbox />} label="Western/Comparative Culture" />
-      <FormControlLabel control={<Checkbox />} label="Non-Western Culture" />
-      <FormControlLabel control={<Checkbox />} label="US Minority Culture" />
-      <FormControlLabel control={<Checkbox />} label="Humanities and the Arts " />
-      <FormControlLabel control={<Checkbox />} label="Natural Science and Technology" />
-      <FormControlLabel control={<Checkbox />} label="Quantitative Reasoning" />
-      <FormControlLabel control={<Checkbox />} label="Social and Behavioral Sciences" />
-    </FormGroup>
-    </CardContent>
+        <Typography sx={{ fontSize: 20 }} color="text.primary" gutterBottom>
+          Gen Eds
+        </Typography>
+        <FormGroup>
+          {Object.keys(genEdIds).map(genEdId => {
+            return (<FormControlLabel control={<Checkbox />} label={genEdIds[genEdId]} onChange={checkBoxUpdate(genEdId)} checked={geneds[genEdId]} />);
+          }
+          )}
+        </FormGroup>
+      </CardContent>
     </Card>
-    
+
   );
 }
 

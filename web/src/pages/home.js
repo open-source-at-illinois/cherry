@@ -1,12 +1,25 @@
 import React from "react";
 import Preferences from "../components/Preferences";
-import CourseList from '../components/CourseList';
 import { Grid } from "@mui/material";
-import CherryService from "../services/CherryService"
 import CourseTable from '../components/CourseTable';
+import { useState } from "react";
 
 const HomePage = () => {
-    const [preferences, setPreferences] = React.useState({});
+
+    const [preferences, setPreferences] = React.useState({
+        geneds: {
+            AC: false,
+            WCC: false,
+            NWC: false,
+            USM: false,
+            HA: false,
+            NST: false,
+            QRA: false,
+            QRB: false,
+            SBS: false
+        }
+    }
+    );
 
     const containerStyle = {
         padding: 0,
@@ -17,11 +30,11 @@ const HomePage = () => {
     return (
         <>
             <Grid container sx={containerStyle}>
-                {/* <Grid item sx={itemStyle}>
-                    <Preferences preferences={preferences} setPreferences={setPreferences}/>
-                </Grid> */}
                 <Grid item sx={itemStyle}>
-                    <CourseTable/>
+                    <Preferences preferences={preferences} setPreferences={setPreferences}/>
+                </Grid>
+                <Grid item sx={itemStyle}>
+                    <CourseTable preferences={preferences}/>
                 </Grid>
             </Grid>
         </>

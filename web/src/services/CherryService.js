@@ -21,7 +21,9 @@ const baseUrl = 'https://localhost:5000';
 const s3Uri = 'https://cherry-static.opensourceatillinois.com';
 
 const getAllCourses = async (params) => {
-    const promise = axios.get( params.page ? `${s3Uri}/2021-sp/${params.page}` : `${s3Uri}/2021-sp/0`);
+    const promise = axios.get( params.page ? `${s3Uri}/2021-sp/${params.page}` : `${s3Uri}/2021-sp/0`, {
+        params: params.options
+    });
     return await promise.then(response => response.data);
 }
 

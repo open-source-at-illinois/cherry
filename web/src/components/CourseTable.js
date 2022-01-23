@@ -9,6 +9,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { useEffect } from 'react';
 import CherryService from '../services/CherryService';
+
 const columns = [
   { id: 'Subject', label: 'Subject', minWidth: 170 },
   { id: 'Number', label: 'Number', minWidth: 100 },
@@ -16,7 +17,7 @@ const columns = [
   { id: 'GPA', label: 'GPA', minWidth: 170 },
 ];
 
-export default function StickyHeadTable() {
+const CourseTable = ({preferences}) => {
   // TODO: Update this via API Call
   const [rowsCount, setRowsCount] = React.useState(2000);
   const [page, setPage] = React.useState(0);
@@ -25,14 +26,15 @@ export default function StickyHeadTable() {
   const [rows, setRows] = React.useState({ 1: [] });
 
   useEffect(() => {
-    console.log('useEffect');
-    CherryService.getAllCourses({ page: 1 }).then(response => {
+    // console.log('useEffect');
+    // console.log(preferences);
+    CherryService.getAllCourses({ page: 1, options: preferences }).then(response => {
       setRows({ 1: response })
     });
     CherryService.getCourseListMeta().then(response => {
-      setRowsCount(response.numberOfCourses);
+      setRowsCount(response.numberOfCourses); 
     });
-  }, []);
+  }, [preferences]);
 
   const handleChangePage = async (event, newPage) => {
     newPage = newPage + 1;
@@ -95,3 +97,5 @@ export default function StickyHeadTable() {
     </Paper>
   );
 }
+
+export default CourseTable;
