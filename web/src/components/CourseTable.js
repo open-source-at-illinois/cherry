@@ -29,11 +29,12 @@ const CourseTable = ({preferences}) => {
     // console.log('useEffect');
     // console.log(preferences);
     CherryService.getAllCourses({ page: 1, options: preferences }).then(response => {
-      setRows({ 1: response })
+      setRows({ 1: response.courses })
+      setRowsCount(response.total ? response.total : 2000);
     });
-    CherryService.getCourseListMeta().then(response => {
-      setRowsCount(response.numberOfCourses); 
-    });
+    // CherryService.getCourseListMeta().then(response => {
+    //   setRowsCount(response.numberOfCourses); 
+    // });
   }, [preferences]);
 
   const handleChangePage = async (event, newPage) => {
@@ -41,7 +42,7 @@ const CourseTable = ({preferences}) => {
     if (!rows[newPage]) {
       setRows({ ...rows, [newPage]: [] })
       await CherryService.getAllCourses({ page: newPage })
-        .then(response => setRows({ ...rows, [newPage]: response }));
+        .then(response => setRows({ ...rows, [newPage]: response.courses }));
     }
     setPage(newPage - 1);
   };
