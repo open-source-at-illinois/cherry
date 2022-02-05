@@ -53,9 +53,9 @@ def parse_entry(loc: str):
         return []
     course_num = get_course_number(soup)
     course_name = get_course_name(soup)
-    credits = get_credit_hours(soup)        
+    credits = get_credit_hours(soup)
     geneds = get_geneds(soup)
-    
+
     # The only table on the page is the one with section info
     section_table = soup.find("table")
     labels = [i.text for i in section_table.find_all("th")]
@@ -107,4 +107,4 @@ def parse_explorer(data_dir: str = "data/courses/") -> pd.DataFrame:
     course_df["YearTerm"] = course_df["year"].astype(str) + "-" + course_df["term"].apply(lambda x: x[:2])
 
     return course_df
-    
+

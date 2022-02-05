@@ -34,7 +34,7 @@ class Section(Base):
     crn: int
     year: int
     term: str
-    
+
     course_id: int
     course: Course
     instructors: List[Instructor]

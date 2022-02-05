@@ -20,4 +20,3 @@ def write_data(data: pd.DataFrame, year_term: str, loc: str):
             "weightedCourseMeanGPA": data["GPA"].rmul(data["size"]).sum() / data["size"].sum()
         }
         json.dump(summary, f)
-
