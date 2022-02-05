@@ -21,8 +21,16 @@ const baseUrl = 'https://localhost:5000';
 const s3Uri = 'https://cherry-static.opensourceatillinois.com';
 
 const getAllCourses = async (params) => {
-    const promise = axios.get( params.page ? `${s3Uri}/2021-sp/${params.page}` : `${s3Uri}/2021-sp/0`, {
-        params: params.options
+    var queryParams = {};
+    // Create a comma separated list of geneds that are marked true
+    const genedList = Object.entries(params.options.geneds)
+        .filter(gened => gened[1])
+        .map(gened => gened[0]).join(',');
+    if (genedList) {
+        queryParams.geneds = genedList;
+    }
+    const promise = axios.get(params.page ? `${s3Uri}/2021-sp/${params.page}` : `${s3Uri}/2021-sp/0`, {
+        params: queryParams
     });
     return await promise.then(response => response.data);
 }
@@ -32,6 +40,6 @@ const getCourseListMeta = () => {
     return promise.then(response => response.data);
 }
 
-const CherryService = { getAllCourses , getCourseListMeta };
+const CherryService = { getAllCourses, getCourseListMeta };
 
 export default CherryService;
