@@ -29,7 +29,7 @@ const getAllCourses = async (params) => {
     if (genedList) {
         queryParams.geneds = genedList;
     }
-    const promise = axios.get(params.page ? `${s3Uri}/2021-sp/${params.page}` : `${s3Uri}/2021-sp/0`, {
+    const promise = axios.get(params.page ? `${s3Uri}/2021/spring/${params.page}` : `${s3Uri}/2021/spring/0`, {
         params: queryParams
     });
     return await promise.then(response => response.data);
