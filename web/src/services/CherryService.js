@@ -18,7 +18,8 @@ const baseUrl = 'https://localhost:5000';
 //     return dummySections;
 // }
 
-const s3Uri = 'https://cherry-static.opensourceatillinois.com';
+// const s3Uri = 'https://cherry-static.opensourceatillinois.com';
+const apiUri = 'https://cherry-api.opensourceatillinois.com';
 
 const getAllCourses = async (params) => {
     var queryParams = {};
@@ -29,14 +30,14 @@ const getAllCourses = async (params) => {
     if (genedList) {
         queryParams.geneds = genedList;
     }
-    const promise = axios.get(params.page ? `${s3Uri}/2021/spring/${params.page}` : `${s3Uri}/2021/spring/0`, {
+    const promise = axios.get(params.page ? `${apiUri}/2021/spring/${params.page}` : `${apiUri}/2021/spring/0`, {
         params: queryParams
     });
     return await promise.then(response => response.data);
 }
 
 const getCourseListMeta = () => {
-    const promise = axios.get(`${s3Uri}/2021-sp/summary`);
+    const promise = axios.get(`${apiUri}/2021-sp/summary`);
     return promise.then(response => response.data);
 }
 

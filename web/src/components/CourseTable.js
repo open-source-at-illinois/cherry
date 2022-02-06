@@ -12,7 +12,7 @@ import CherryService from '../services/CherryService';
 
 const columns = [
   { id: 'number', label: 'Course Number', minWidth: 100 },
-  { id: 'Course Title', label: 'Course Title', minWidth: 170 },
+  { id: 'course_name', label: 'Course Title', minWidth: 170 },
   { id: 'gpa', label: 'GPA', minWidth: 170 },
 ];
 
