@@ -11,10 +11,9 @@ import { useEffect } from 'react';
 import CherryService from '../services/CherryService';
 
 const columns = [
-  { id: 'Subject', label: 'Subject', minWidth: 170 },
-  { id: 'Number', label: 'Number', minWidth: 100 },
+  { id: 'number', label: 'Course Number', minWidth: 100 },
   { id: 'Course Title', label: 'Course Title', minWidth: 170 },
-  { id: 'GPA', label: 'GPA', minWidth: 170 },
+  { id: 'gpa', label: 'GPA', minWidth: 170 },
 ];
 
 const CourseTable = ({preferences}) => {
@@ -28,7 +27,8 @@ const CourseTable = ({preferences}) => {
   useEffect(() => {
     // console.log('useEffect');
     // console.log(preferences);
-    CherryService.getAllCourses({ page: 1, options: preferences }).then(response => {
+    CherryService.getAllCourses({ page: 0, options: preferences }).then(response => {
+      console.log(response);
       setRows({ 1: response.courses })
       setRowsCount(response.total ? response.total : 2000);
     });
@@ -41,7 +41,7 @@ const CourseTable = ({preferences}) => {
     newPage = newPage + 1;
     if (!rows[newPage]) {
       setRows({ ...rows, [newPage]: [] })
-      await CherryService.getAllCourses({ page: newPage })
+      await CherryService.getAllCourses({ page: newPage, options: preferences })
         .then(response => setRows({ ...rows, [newPage]: response.courses }));
     }
     setPage(newPage - 1);
