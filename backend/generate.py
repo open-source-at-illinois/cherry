@@ -3,13 +3,13 @@ import ast
 import pandas as pd
 import tqdm
 import os
-from write import write_data
-from utils import gpa_calculate
-import explorer
+from api.write import write_data
+from api.utils import gpa_calculate
+import api.explorer
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
-from app import db
-from orm.database import *
+from api.app import db
+from api.orm.database import *
 
 def generate():
     # courses = pd.read_csv("data/datasets/gpa/uiuc-gpa-dataset.csv")
@@ -49,8 +49,6 @@ def generate():
             instructor_mapping[instructor_name] = instructor
             session.add(instructor)
         session.commit()
-
-        breakpoint()
 
         gened_mapping = {}
         # for gened_abbr in tqdm.tqdm(set(itertools.chain.from_iterable(courses["geneds"].dropna()))):
@@ -118,4 +116,5 @@ def generate():
     #         write_data(year_data, year, f"build")
 
 if __name__  == "__main__":
+    db.create_all()
     generate()
