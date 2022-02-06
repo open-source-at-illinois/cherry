@@ -12,6 +12,7 @@ gunicorn = "^20.1.0"
 pandas = "^1.4.0"
 tqdm = "^4.62.3"
 pydantic = "^1.9.0"
+Flask-Cors = "^3.0.10"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.0.0"
