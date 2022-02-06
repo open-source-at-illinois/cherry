@@ -3,12 +3,13 @@ import ast
 import pandas as pd
 import tqdm
 import os
-from write import write_data
-from utils import gpa_calculate
-import explorer
+from api.write import write_data
+from api.utils import gpa_calculate
+import api.explorer
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
-from db import *
+from api.app import db
+from api.orm.database import *
 
 def generate():
     # courses = pd.read_csv("data/datasets/gpa/uiuc-gpa-dataset.csv")
@@ -41,8 +42,7 @@ def generate():
     print(courses.columns)
 
     ## sqlite builder
-    engine = create_engine("sqlite+pysqlite:///build/cherry.db")
-    with Session(engine) as session:
+    with db.session() as session:
         instructor_mapping = {}
         for instructor_name in tqdm.tqdm(set(courses["Primary Instructor"].dropna())):
             instructor = Instructor(name=instructor_name)
@@ -66,7 +66,8 @@ def generate():
                 number = course_info["Course Number"],
                 geneds = [gened_mapping[x] for x in set(course_info["geneds"]) if x in gened_mapping], gpa=course_info["GPA"],
                 year=course_info["year"],
-                term=course_info["term"]
+                term=course_info["term"],
+                course_name=course_info["Course Name"]
             )
             course_mapping[course_info["Course Number"]] = course
             session.add(course)
@@ -115,4 +116,5 @@ def generate():
     #         write_data(year_data, year, f"build")
 
 if __name__  == "__main__":
+    db.create_all()
     generate()

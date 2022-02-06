@@ -13,4 +13,11 @@ def query(year, term, page):
     else:
         geneds = []
 
-    return jsonify(list(geneds_filter(db, int(year), str(term), geneds, page=int(page))))
+    total, courses = geneds_filter(db, int(year), str(term), geneds, page=int(page))
+
+    return jsonify(
+        {
+            "total": total,
+            "courses": list(courses)
+        }
+    )

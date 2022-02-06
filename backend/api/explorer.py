@@ -6,7 +6,7 @@ import re
 import os
 import tqdm
 import multiprocessing
-from utils import geneds_parse
+from api.utils import geneds_parse
 
 def get_course_number(soup):
     query = soup.body.find("div", class_="cis-title-wrapper").find("p", class_="cis-section-title")

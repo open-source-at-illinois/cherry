@@ -1,46 +1,40 @@
 from ..app import db
-from sqlalchemy import Float, create_engine
-from sqlalchemy.orm import Session, relationship, sessionmaker, declarative_base
-from sqlalchemy import Column, ForeignKey, Integer, String, create_engine
-from sqlalchemy import Table
-from pydantic import BaseModel
 
-Base = db.declarative_base()
-
-geneds_course_association_table = Table('geneds_course_association', Base.metadata,
-    Column('gened_id', ForeignKey('geneds.id'), primary_key=True),
-    Column('course_id', ForeignKey('courses.id'), primary_key=True)
+geneds_course_association_table = db.Table('geneds_course_association', db.metadata,
+    db.Column('gened_id', db.ForeignKey('geneds.id'), primary_key=True),
+    db.Column('course_id', db.ForeignKey('courses.id'), primary_key=True)
 )
-instructors_sections_association_table = Table('instructors_section_association', Base.metadata,
-    Column('instructor_id', ForeignKey('instructors.id'), primary_key=True),
-    Column('sections_id', ForeignKey('sections.id'), primary_key=True)
+instructors_sections_association_table = db.Table('instructors_section_association', db.metadata,
+    db.Column('instructor_id', db.ForeignKey('instructors.id'), primary_key=True),
+    db.Column('sections_id', db.ForeignKey('sections.id'), primary_key=True)
 )
 
-class GenEd(Base):
+class GenEd(db.Model):
     __tablename__ = "geneds"
-    id = Column(Integer, primary_key=True)
-    abbr = Column(String)
+    id = db.Column(db.Integer, primary_key=True)
+    abbr = db.Column(db.String)
 
-    courses = relationship(
+    courses = db.relationship(
         "Course",
         secondary=geneds_course_association_table,
         back_populates="geneds"
     )
 
-class Course(Base):
+class Course(db.Model):
     __tablename__ = "courses"
-    id = Column(Integer, primary_key=True)
-    number = Column(String)
-    gpa = Column(Float)
-    year = Column(Integer)
-    term = Column(String)
+    id = db.Column(db.Integer, primary_key=True)
+    number = db.Column(db.String)
+    gpa = db.Column(db.Float)
+    year = db.Column(db.Integer)
+    term = db.Column(db.String)
+    course_name = db.Column(db.String)
 
-    geneds = relationship(
+    geneds = db.relationship(
         "GenEd",
         secondary=geneds_course_association_table,
         back_populates="courses"
     )
-    sections = relationship("Section", back_populates="course")
+    sections = db.relationship("Section", back_populates="course")
 
     def to_dict(self):
         return {
@@ -48,37 +42,31 @@ class Course(Base):
             "number": self.number,
             "gpa": self.gpa,
             "year": self.year,
-            "term": self.term
+            "term": self.term,
+            "course_name": self.course_name
         }
 
-class Instructor(Base):
+class Instructor(db.Model):
     __tablename__ = "instructors"
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    sections = relationship(
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    sections = db.relationship(
         "Section",
         secondary=instructors_sections_association_table,
         back_populates="instructors"
     )
 
-class Section(Base):
+class Section(db.Model):
     __tablename__ = "sections"
-    id = Column(Integer, primary_key=True)
-    crn = Column(Integer)
+    id = db.Column(db.Integer, primary_key=True)
+    crn = db.Column(db.Integer)
 
-    course_id = Column(Integer, ForeignKey('courses.id'))
-    course = relationship("Course", back_populates="sections")
-    instructors = relationship(
+    course_id = db.Column(db.Integer, db.ForeignKey('courses.id'))
+    course = db.relationship("Course", back_populates="sections")
+    instructors = db.relationship(
         "Instructor",
         secondary=instructors_sections_association_table,
         back_populates="sections"
     )
 
-
-# class Database():
-#     def __init__(self, loc: "sqlite+pysqlite:///build/cherry.db"):
-#         self.engine = create_engine(loc, echo=True, future=True)
-
-#     def insert
-
-# Base.metadata.create_all(engine)
+db.create_all()

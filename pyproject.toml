@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "cherry"
+version = "0.1.0"
+description = ""
+authors = []
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Flask = "^2.0.2"
+Flask-SQLAlchemy = "^2.5.1"
+gunicorn = "^20.1.0"
+pandas = "^1.4.0"
+tqdm = "^4.62.3"
+pydantic = "^1.9.0"
+Flask-Cors = "^3.0.10"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
