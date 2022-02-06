@@ -8,7 +8,8 @@ from utils import gpa_calculate
 import explorer
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
-from db import *
+from app import db
+from orm.database import *
 
 def generate():
     # courses = pd.read_csv("data/datasets/gpa/uiuc-gpa-dataset.csv")
@@ -41,14 +42,15 @@ def generate():
     print(courses.columns)
 
     ## sqlite builder
-    engine = create_engine("sqlite+pysqlite:///build/cherry.db")
-    with Session(engine) as session:
+    with db.session() as session:
         instructor_mapping = {}
         for instructor_name in tqdm.tqdm(set(courses["Primary Instructor"].dropna())):
             instructor = Instructor(name=instructor_name)
             instructor_mapping[instructor_name] = instructor
             session.add(instructor)
         session.commit()
+
+        breakpoint()
 
         gened_mapping = {}
         # for gened_abbr in tqdm.tqdm(set(itertools.chain.from_iterable(courses["geneds"].dropna()))):

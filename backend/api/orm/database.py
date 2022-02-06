@@ -1,4 +1,4 @@
-from ..app import db
+from app import db
 from sqlalchemy import Float, create_engine
 from sqlalchemy.orm import Session, relationship, sessionmaker, declarative_base
 from sqlalchemy import Column, ForeignKey, Integer, String, create_engine
