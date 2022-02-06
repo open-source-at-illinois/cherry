@@ -13,11 +13,11 @@ const GenEdSelector = ({ geneds = {}, setGenEds }) => {
     AC: "Advanced Composition",
     WCC: "Western/Comparative Culture",
     NWC: "Non-Western Culture",
-    USM: "US Minority Culture",
+    USMC: "US Minority Culture",
     HA: "Humanities and the Arts ",
     NST: "Natural Science and Technology",
-    QRA: "Quantitative Reasoning II",
-    QRB: "Quantitative Reasoning I",
+    QRA: "Quantitative Reasoning I",
+    QRB: "Quantitative Reasoning II",
     SBS: "Social and Behavioral Sciences",
   }
 

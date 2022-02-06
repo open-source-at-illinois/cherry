@@ -8,10 +8,10 @@ const HomePage = () => {
 
     const [preferences, setPreferences] = React.useState({
         geneds: {
-            AC: false,
+            AC: false, 
             WCC: false,
             NWC: false,
-            USM: false,
+            USMC: false,
             HA: false,
             NST: false,
             QRA: false,
