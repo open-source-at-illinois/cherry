@@ -66,7 +66,8 @@ def generate():
                 number = course_info["Course Number"],
                 geneds = [gened_mapping[x] for x in set(course_info["geneds"]) if x in gened_mapping], gpa=course_info["GPA"],
                 year=course_info["year"],
-                term=course_info["term"]
+                term=course_info["term"],
+                course_name=course_info["Course Name"]
             )
             course_mapping[course_info["Course Number"]] = course
             session.add(course)

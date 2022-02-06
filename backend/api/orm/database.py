@@ -34,6 +34,7 @@ class Course(Base):
     gpa = Column(Float)
     year = Column(Integer)
     term = Column(String)
+    course_name = Column(String)
 
     geneds = relationship(
         "GenEd",
@@ -48,7 +49,8 @@ class Course(Base):
             "number": self.number,
             "gpa": self.gpa,
             "year": self.year,
-            "term": self.term
+            "term": self.term,
+            "course_name": self.course_name
         }
 
 class Instructor(Base):
