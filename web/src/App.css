@@ -38,7 +38,6 @@
 }
 
 .spacer {
-  aspect-ratio: 900/50;
   width: 100%;
   background-repeat: no-repeat;
   background-position: center;
@@ -46,5 +45,13 @@
 }
 
 .curve1 {
-  background-image: url(./images/wave-haikei.svg);
+  position: absolute;
+  bottom: 0;
+  aspect-ratio: 900/50;
+  background-image: url(./images/wave-footer.svg);
+}
+
+.curve2 {
+  aspect-ratio: 900/22  ;
+  background-image: url(./images/wave-top.svg);
 }
