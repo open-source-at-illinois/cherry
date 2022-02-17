@@ -6,6 +6,7 @@ import AnalyticsPage from './pages/analytics';
 
 function App() {
   return (
+    <>
     <div className="App">
       <Switch>
         <Route path="/login">
@@ -25,6 +26,7 @@ function App() {
         </Route>
       </Switch>
     </div>
+    </>
   );
 }
 

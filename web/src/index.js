@@ -25,6 +25,7 @@ ReactDOM.render(
         <div style={{ paddingLeft: "50px", paddingTop:"20px" }}>
           <App />
         </div>
+        <div className="spacer curve1"></div>
       </ThemeProvider>
     </Router>
   </React.StrictMode>,

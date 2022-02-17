@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.spacer {
+  aspect-ratio: 900/50;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.curve1 {
+  background-image: url(./images/wave-haikei.svg);
+}
