@@ -23,13 +23,15 @@ def geneds_filter(db, year, term, geneds: List[str], page=0, per_page=100):
             stmt = session.query(Course).select_entity_from(gened_filter).where(Course.year == int(year)).where(Course.term == str(term)).order_by(Course.gpa.desc())
 
 
-        print(stmt)
+        # print(stmt)
         result = stmt.paginate(page, per_page, False)
 
         # debug
-        for result in session.query(Course).where(Course.number == "BADM 590"):
-            print(result)
-            print(result.to_dict())
-            print(result.sections)
+        # results = session.query(Course).where(Course.number == "BADM 590").where(Course.term == "fall").where(Course.year == 2019)
+        # for result in results:
+        #     breakpoint()
+        #     print(result)
+        #     print(result.to_dict())
+        #     print(result.sections)
 
     return (result.total, [x.to_dict() for x in result.items])
