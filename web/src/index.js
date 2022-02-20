@@ -22,9 +22,10 @@ ReactDOM.render(
     <Router>
       <ThemeProvider theme={themeOptions}>
         <NavBar />
-        <div style={{ paddingLeft: "50px", paddingTop:"20px" }}>
+        <div style={{ paddingLeft: "50px", paddingTop:"2  0px" }}>
           <App />
         </div>
+        <div className="spacer curve1"></div>
       </ThemeProvider>
     </Router>
   </React.StrictMode>,
