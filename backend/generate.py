@@ -1,3 +1,4 @@
+from enum import unique
 import itertools
 import ast
 from matplotlib import collections
@@ -59,16 +60,21 @@ def generate():
             session.add(gened)
         session.commit()
 
-        # print(courses.sort_values("YearTerm", ascending=False).drop_duplicates(["Course Number"]).dropna()["YearTerm"])
+        # Aggregating
         course_mapping = {}
         course_gened_mapping = {}
         seen_courses = set()
-        for _, course_info in tqdm.tqdm(courses.sort_values("YearTerm", ascending=False).drop_duplicates(subset=["CRN", "year", "term", "Course Name"]).dropna(subset=["Course Number", "GPA"]).iterrows()):
-            if (course_info["Course Number"], course_info["Course Name"]) not in seen_courses:
-                seen_courses.add((course_info["Course Number"], course_info["Course Name"]))
+        courses["numbernameyearterm"] = courses["Course Number"].apply(lambda x: str(x).rstrip()) + courses["Course Name"].apply(lambda x: str(x).rstrip()) + courses["year"].apply(lambda x: str(x).rstrip()) + courses["term"].apply(lambda x: str(x).rstrip())
+        unique_courses = courses.sort_values("YearTerm", ascending=False).drop_duplicates(subset=["CRN", "year", "term", "Course Name"]).dropna(subset=["Course Number", "GPA"])
+        agg_funcs = {}
+        for col in unique_courses.columns:
+            if col != "GPA":
+                agg_funcs[col] = "first"
             else:
-                continue
+                agg_funcs[col] = "mean"
 
+        unique_courses = unique_courses.groupby("numbernameyearterm").agg(agg_funcs)
+        for _, course_info in tqdm.tqdm(unique_courses.iterrows()):
             if course_info["Course Number"] not in course_gened_mapping:
                 course_gened_mapping[course_info["Course Number"]] = set()
             course_gened_mapping[course_info["Course Number"]] |= {gened_mapping[x] for x in set(course_info["geneds"]) if x in gened_mapping}

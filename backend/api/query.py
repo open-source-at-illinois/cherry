@@ -16,6 +16,7 @@ def geneds_filter(db, year, term, geneds: List[str], page=0, per_page=100):
             stmt = session.query(Course).where(Course.year == int(year)).where(Course.term == str(term)).order_by(Course.gpa.desc())
         else:
             gened_queries = [session.query(GenEd).where(GenEd.abbr == gened) for gened in geneds]
+            print(len(gened_queries))
             # gened_filter = reduce(lambda x, y: x.union(y), gened_queries)
             gened_filter = reduce(lambda x, y: x and y, gened_queries)
             # gened_filter = reduce(lambda x, y: db._and(x, y), gened_queries)
