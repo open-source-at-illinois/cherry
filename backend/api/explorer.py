@@ -1,9 +1,12 @@
 import pandas as pd
+from typing import Iterable, List
 from bs4 import BeautifulSoup
+import itertools
 import re
 import os
-import sys
-from tqdm import tqdm
+import tqdm
+import multiprocessing
+from api.utils import geneds_parse
 
 def get_course_number(soup):
     query = soup.body.find("div", class_="cis-title-wrapper").find("p", class_="cis-section-title")
@@ -31,33 +34,37 @@ def get_credit_hours(soup):
             credits = ';'.join(credits)
             return credits
 
-def get_geneds(soup):
+def get_geneds(soup) -> List[str]:
     # getting gen eds satisfied
-    geneds = None
+    geneds = []
     for elem in soup(text=re.compile(r'.General Education.')):
-        geneds = [i.text for i in elem.parent.parent.find_all("p")]
-        geneds = ';'.join(geneds)
-    return geneds
+        geneds.extend([geneds_parse(i.text) for i in elem.parent.parent.find_all("p")])
+    return [x for x in geneds if x]
 
-def get_all_course_data(soup):
+def parse_entry(loc: str):
+    with open(loc) as fin:
+        try:
+            soup = BeautifulSoup(fin, "html.parser")
+        except:
+            raise IOError(f"Unable to read file: " + loc)
     # each section of each course is a separate entry
     course_data = []
     if soup.body == None:
         return []
     course_num = get_course_number(soup)
     course_name = get_course_name(soup)
-    credits = get_credit_hours(soup)        
+    credits = get_credit_hours(soup)
     geneds = get_geneds(soup)
-    
+
     # The only table on the page is the one with section info
     section_table = soup.find("table")
     labels = [i.text for i in section_table.find_all("th")]
-    if "Subject Code" in labels:
+    # if "Subject Code" in labels:
         # print(course_num)
     non_header_rows = section_table.find_all("tr")[1:]
     for row in non_header_rows:
         skip = False
-        entry = dict()
+        entry = {}
         section_info = row.find_all("td")
         for (counter, dat) in enumerate(section_info):
             if "Degree Notes:" in dat.text: # don't want row with "degree notes" (repetitive data about gen eds)
@@ -69,30 +76,35 @@ def get_all_course_data(soup):
         entry["Course Number"] = course_num
         entry["Course Name"] = course_name
         entry["Number of Credits"] = credits
-        entry["GenEds Satisfied"] = geneds
+        entry["geneds"] = geneds
+        entry["loc"] = loc
         course_data.append(entry)
     return course_data
 
-if __name__ == "__main__":
-    root_dir = "data/courses/"
-    output_path = "./data/courses.csv"
-    
-    # read/process html files
+def xml_iter(data_dir: str = "data/courses/") -> Iterable[str]:
     course_data = []
-    for (curr_dir, subdirs, filenames) in tqdm(list(os.walk(root_dir)), desc="Working..."):
+    for (curr_dir, subdirs, filenames) in os.walk(data_dir):
         for f in filenames:
             path = os.path.join(curr_dir, f)
+            if path.endswith("schedule.html") or path.count("/") != 9:
+                continue
             if not path.endswith("html"):
                 continue
-            if path.count('/') + path.count('\\') < 4:
-                continue
-            with open(path) as fin:
-                try:
-                    soup = BeautifulSoup(fin, "html.parser")
-                    course_data.extend(get_all_course_data(soup))
-                except:
-                    print(f"Unable to read file: " + path)
-    # convert data to dataframe and then to csv
-    course_df = pd.DataFrame(data=course_data)
-    course_df.to_csv("./all_course_data.csv", encoding='utf-8', index=False)
-    
+            yield path
+
+def parse_explorer(data_dir: str = "data/courses/") -> pd.DataFrame:
+    # read/process html files
+    with multiprocessing.Pool(multiprocessing.cpu_count()) as p:
+        files = list(tqdm.tqdm(xml_iter(data_dir=data_dir)))
+        rows = itertools.chain.from_iterable(p.map(parse_entry, files))
+
+    course_df = pd.DataFrame(data=rows)
+
+    course_df["year"] = course_df["loc"].apply(lambda x: x.split("/")[-4])
+    course_df["term"] = course_df["loc"].apply(lambda x: x.split("/")[-3])
+    course_df["dept"] = course_df["loc"].apply(lambda x: x.split("/")[-2])
+    course_df["Course Number"] = course_df["dept"] + " " + course_df["loc"].apply(lambda x: x.split("/")[-1].split(".")[0])
+    course_df["YearTerm"] = course_df["year"].astype(str) + "-" + course_df["term"].apply(lambda x: x[:2])
+
+    return course_df
+

@@ -18,18 +18,29 @@ const baseUrl = 'https://localhost:5000';
 //     return dummySections;
 // }
 
-const s3Uri = 'https://cherry-static.opensourceatillinois.com';
+// const s3Uri = 'https://cherry-static.opensourceatillinois.com';
+const apiUri = 'https://cherry-api.opensourceatillinois.com';
 
 const getAllCourses = async (params) => {
-    const promise = axios.get( params.page ? `${s3Uri}/2021-sp/${params.page}` : `${s3Uri}/2021-sp/0`);
+    var queryParams = {};
+    // Create a comma separated list of geneds that are marked true
+    const genedList = Object.entries(params.options.geneds)
+        .filter(gened => gened[1])
+        .map(gened => gened[0]).join(',');
+    if (genedList) {
+        queryParams.geneds = genedList;
+    }
+    const promise = axios.get(params.page ? `${apiUri}/2021/spring/${params.page}` : `${apiUri}/2021/spring/1`, {
+        params: queryParams
+    });
     return await promise.then(response => response.data);
 }
 
 const getCourseListMeta = () => {
-    const promise = axios.get(`${s3Uri}/2021-sp/summary`);
+    const promise = axios.get(`${apiUri}/2021-sp/summary`);
     return promise.then(response => response.data);
 }
 
-const CherryService = { getAllCourses , getCourseListMeta };
+const CherryService = { getAllCourses, getCourseListMeta };
 
 export default CherryService;

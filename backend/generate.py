@@ -1,15 +1,16 @@
 import itertools
 import ast
+from matplotlib import collections
 import pandas as pd
 import tqdm
 import os
-import dataset
-from write import write_data
-from utils import gpa_calculate
-import explorer
+from api.write import write_data
+from api.utils import gpa_calculate
+import api.explorer
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
-from db import *
+from api.app import db
+from api.orm.database import *
 
 def generate():
     # courses = pd.read_csv("data/datasets/gpa/uiuc-gpa-dataset.csv")
@@ -37,12 +38,12 @@ def generate():
 
     # courses = listings.merge(courses, on=["YearTerm", "Course Number"], how="left")
     # courses.to_csv("courses.csv")
+
     courses = pd.read_csv("courses.csv")
     print(courses.columns)
-    
+
     ## sqlite builder
-    engine = create_engine("sqlite+pysqlite:///build/cherry.db")
-    with Session(engine) as session:
+    with db.session() as session:
         instructor_mapping = {}
         for instructor_name in tqdm.tqdm(set(courses["Primary Instructor"].dropna())):
             instructor = Instructor(name=instructor_name)
@@ -60,32 +61,48 @@ def generate():
 
         # print(courses.sort_values("YearTerm", ascending=False).drop_duplicates(["Course Number"]).dropna()["YearTerm"])
         course_mapping = {}
-        for _, course_info in tqdm.tqdm(courses.sort_values("YearTerm", ascending=False).drop_duplicates(subset="Course Number").dropna(subset=["Course Number"]).iterrows()):
-            course = Course(number = course_info["Course Number"], geneds = [gened_mapping[x] for x in set(course_info["geneds"]) if x in gened_mapping])
+        course_gened_mapping = {}
+        seen_courses = set()
+        for _, course_info in tqdm.tqdm(courses.sort_values("YearTerm", ascending=False).drop_duplicates(subset=["CRN", "year", "term", "Course Name"]).dropna(subset=["Course Number", "GPA"]).iterrows()):
+            if (course_info["Course Number"], course_info["Course Name"]) not in seen_courses:
+                seen_courses.add((course_info["Course Number"], course_info["Course Name"]))
+            else:
+                continue
+
+            if course_info["Course Number"] not in course_gened_mapping:
+                course_gened_mapping[course_info["Course Number"]] = set()
+            course_gened_mapping[course_info["Course Number"]] |= {gened_mapping[x] for x in set(course_info["geneds"]) if x in gened_mapping}
+
+            course = Course(
+                number = course_info["Course Number"],
+                geneds = [gened_mapping[x] for x in set(course_info["geneds"]) if x in gened_mapping], 
+                gpa=course_info["GPA"],
+                year=course_info["year"],
+                term=course_info["term"],
+                course_name=course_info["Course Name"]
+            )
             course_mapping[course_info["Course Number"]] = course
             session.add(course)
         session.commit()
 
-        section_mapping = {}
-        for _, section_info in tqdm.tqdm(courses.dropna(subset=["Course Number", "CRN"])[["CRN", "year", "term", "GPA", "Course Number", "Primary Instructor"]].iterrows()):
+        # section_mapping = {}
+        for _, section_info in tqdm.tqdm(courses.dropna(subset=["Course Number", "CRN", "GPA"])[["CRN", "year", "term", "GPA", "Course Number", "Primary Instructor"]].iterrows()):
             if instructor := instructor_mapping.get(course_info["Primary Instructor"]):
                 section = Section(
-                    crn=section_info["CRN"], 
-                    year=section_info["year"], 
-                    term=section_info["term"], 
-                    gpa=section_info["GPA"], 
-                    course=course_mapping[section_info["Course Number"]], 
-                    instructors=instructor
+                    crn=section_info["CRN"],
+                    # year=section_info["year"],
+                    # term=section_info["term"],
+                    course=course_mapping[section_info["Course Number"]],
+                    instructors=[instructor]
                 )
             else:
                 section = Section(
-                    crn=section_info["CRN"], 
-                    year=section_info["year"], 
-                    term=section_info["term"], 
-                    gpa=section_info["GPA"], 
+                    crn=section_info["CRN"],
+                    # year=section_info["year"],
+                    # term=section_info["term"],
                     course=course_mapping[section_info["Course Number"]]
                 )
-            section_mapping[section_info["CRN"]] = section
+            # section_mapping[section_info["CRN"]] = section
             session.add(section)
         session.commit()
 
@@ -111,4 +128,5 @@ def generate():
     #         write_data(year_data, year, f"build")
 
 if __name__  == "__main__":
+    db.create_all()
     generate()

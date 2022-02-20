@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+.spacer {
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.curve1 {
+  position: absolute;
+  bottom: 0;
+  aspect-ratio: 900/50;
+  background-image: url(./images/wave-footer.svg);
+}
+
+.curve2 {
+  aspect-ratio: 900/22  ;
+  background-image: url(./images/wave-top.svg);
+}

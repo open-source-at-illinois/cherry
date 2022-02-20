@@ -9,14 +9,14 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { useEffect } from 'react';
 import CherryService from '../services/CherryService';
+
 const columns = [
-  { id: 'Subject', label: 'Subject', minWidth: 170 },
-  { id: 'Number', label: 'Number', minWidth: 100 },
-  { id: 'Course Title', label: 'Course Title', minWidth: 170 },
-  { id: 'GPA', label: 'GPA', minWidth: 170 },
+  { id: 'number', label: 'Course Number', minWidth: 100 },
+  { id: 'course_name', label: 'Course Title', minWidth: 170 },
+  { id: 'gpa', label: 'GPA', minWidth: 170 },
 ];
 
-export default function StickyHeadTable() {
+const CourseTable = ({preferences}) => {
   // TODO: Update this via API Call
   const [rowsCount, setRowsCount] = React.useState(2000);
   const [page, setPage] = React.useState(0);
@@ -25,21 +25,24 @@ export default function StickyHeadTable() {
   const [rows, setRows] = React.useState({ 1: [] });
 
   useEffect(() => {
-    console.log('useEffect');
-    CherryService.getAllCourses({ page: 1 }).then(response => {
-      setRows({ 1: response })
+    // console.log('useEffect');
+    // console.log(preferences);
+    CherryService.getAllCourses({ page: 0, options: preferences }).then(response => {
+      console.log(response);
+      setRows({ 1: response.courses })
+      setRowsCount(response.total ? response.total : 2000);
     });
-    CherryService.getCourseListMeta().then(response => {
-      setRowsCount(response.numberOfCourses);
-    });
-  }, []);
+    // CherryService.getCourseListMeta().then(response => {
+    //   setRowsCount(response.numberOfCourses); 
+    // });
+  }, [preferences]);
 
   const handleChangePage = async (event, newPage) => {
     newPage = newPage + 1;
     if (!rows[newPage]) {
       setRows({ ...rows, [newPage]: [] })
-      await CherryService.getAllCourses({ page: newPage })
-        .then(response => setRows({ ...rows, [newPage]: response }));
+      await CherryService.getAllCourses({ page: newPage, options: preferences })
+        .then(response => setRows({ ...rows, [newPage]: response.courses }));
     }
     setPage(newPage - 1);
   };
@@ -95,3 +98,5 @@ export default function StickyHeadTable() {
     </Paper>
   );
 }
+
+export default CourseTable;
