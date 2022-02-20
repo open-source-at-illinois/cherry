@@ -63,7 +63,12 @@ def generate():
         course_mapping = {}
         course_gened_mapping = {}
         seen_courses = set()
-        for _, course_info in tqdm.tqdm(courses.sort_values("YearTerm", ascending=False).drop_duplicates(subset=["CRN", "year", "term"]).dropna(subset=["Course Number", "GPA"]).iterrows()):
+        for _, course_info in tqdm.tqdm(courses.sort_values("YearTerm", ascending=False).drop_duplicates(subset=["CRN", "year", "term", "Course Name"]).dropna(subset=["Course Number", "GPA"]).iterrows()):
+            if (course_info["Course Number"], course_info["Course Name"]) not in seen_courses:
+                seen_courses.add((course_info["Course Number"], course_info["Course Name"]))
+            else:
+                continue
+
             if course_info["Course Number"] not in course_gened_mapping:
                 course_gened_mapping[course_info["Course Number"]] = set()
             course_gened_mapping[course_info["Course Number"]] |= {gened_mapping[x] for x in set(course_info["geneds"]) if x in gened_mapping}
