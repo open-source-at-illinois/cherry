@@ -70,7 +70,7 @@ const AboutPage = () => {
                     <b>Welcome to Cherry!</b>
                     <br></br>
                     <div>
-                        Cherry is a project created by the Open Source at Illinois special interest group. 
+                        Cherry is a project created by the Open Source at Illinois RSO. 
                         The purpose of this project is to allow users to optimize their course selections based on 
                         their academic needs.
                     </div>
