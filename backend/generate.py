@@ -81,7 +81,7 @@ def generate():
 
             course = Course(
                 number = course_info["Course Number"],
-                geneds = [gened_mapping[x] for x in set(course_info["geneds"]) if x in gened_mapping], 
+                geneds = [gened_mapping[x] for x in set(ast.literal_eval(course_info["geneds"])) if x in gened_mapping], 
                 gpa=course_info["GPA"],
                 year=course_info["year"],
                 term=course_info["term"],

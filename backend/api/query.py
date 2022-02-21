@@ -13,17 +13,31 @@ from .orm.database import *
 def geneds_filter(db, year, term, geneds: List[str], page=0, per_page=100):
     with db.session() as session:
         if len(geneds) == 0:
-            stmt = session.query(Course).where(Course.year == int(year)).where(Course.term == str(term)).order_by(Course.gpa.desc())
+            query = session.query(Course).where(Course.year == int(year)).where(Course.term == str(term)).order_by(Course.gpa.desc())
         else:
-            gened_queries = [session.query(GenEd).where(GenEd.abbr == gened) for gened in geneds]
-            print(len(gened_queries))
-            # gened_filter = reduce(lambda x, y: x.union(y), gened_queries)
-            gened_filter = reduce(lambda x, y: x and y, gened_queries)
-            # gened_filter = reduce(lambda x, y: db._and(x, y), gened_queries)
+            filter_query = session.query(
+                geneds_course_association_table
+            ).join(
+                Course,
+                Course.id == geneds_course_association_table.c.course_id
+            ).join(
+                GenEd,
+                GenEd.id == geneds_course_association_table.c.gened_id
+            ).where(Course.year == int(year)
+            ).where(Course.term == str(term))
 
-            stmt = session.query(Course).select_entity_from(gened_filter).where(Course.year == int(year)).where(Course.term == str(term)).order_by(Course.gpa.desc())
+            mapping = {}
+            for item in session.query(GenEd):
+                mapping[item.abbr] = item.id
 
+            for gened in geneds:
+                filter_query = filter_query.where(GenEd.id == mapping[gened])
+            
+            print(filter_query)
+            query = session.query(Course).select_from(filter_query.order_by(Course.gpa.desc()))
 
-        result = stmt.paginate(page, per_page, False)
+            print(query)
+
+        result = query.paginate(page, per_page, False)
 
     return (result.total, [x.to_dict() for x in result.items])
