@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from "react-router-dom"
 import Container from '@mui/material/Container';
 import NavBar from './components/NavBar';
+import ResponsiveAppBar from './components/ResponsiveNavBar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const themeOptions = createTheme({
@@ -21,7 +22,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <ThemeProvider theme={themeOptions}>
-        <NavBar />
+        <ResponsiveAppBar />
         <div style={{ paddingLeft: "50px", paddingTop:"2  0px" }}>
           <App />
         </div>
