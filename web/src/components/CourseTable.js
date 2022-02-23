@@ -76,7 +76,7 @@ const CourseTable = ({preferences}) => {
                           <TableCell key={column.id} align={column.align}>
                             {column.format && typeof value === 'number'
                               ? column.format(value)
-                              : column.id === 'course_name' ? <a href={`https://courses.illinois.edu/schedule/2022/spring/${row['number'].substr(0, row['number'].indexOf(" "))}/${row['number'].substr(row['number'].indexOf(" ") + 1)}`}>{value}</a> : value}
+                              : column.id === 'course_name' ? <a href={`https://courses.illinois.edu/schedule/2022/spring/${row['number'].substr(0, row['number'].indexOf(" "))}/${row['number'].substr(row['number'].indexOf(" ") + 1)}`} target="_blank" rel="noreferrer noopener">{value}</a> : value}
                           </TableCell>
                         );
                         console.log(row['number']);
