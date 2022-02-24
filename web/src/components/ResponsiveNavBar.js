@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Link from '@mui/material/Link';
 
+
 const ResponsiveAppBar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 
@@ -25,26 +26,24 @@ const ResponsiveAppBar = () => {
     const navStyle = {
         color: '#0E0063',
         background: 'white',
-        elevation: 0,
-        alignItems: 'center',
-        justifyContent: 'flex-end',
     }
 
     const navVariant = "h6";
 
     return (
-        <AppBar position="static" sx={navStyle}>
-            <Container maxWidth="xl">
+        <AppBar position="static" elevation={0}>
+            <Container maxWidth="xl" sx={navStyle}>
                 <Toolbar disableGutters>
-                    <Typography
-                        variant="h4"
-                        noWrap
-                        component="div"
-                        sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-                    >
-                        <Link href="/home" underline="none" color='#0E0063' variant="h4">Cherry</Link>
-                    </Typography>
-
+                    <Container>
+                        <Typography
+                            variant="h4"
+                            noWrap
+                            component="div"
+                            sx={{ mr: 2, display: { xs: 'none', md: 'flex'} }}
+                        >
+                            <Link href="/home" underline="none" color='#0E0063' variant="h4">Cherry</Link>
+                        </Typography>
+                    </Container>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
