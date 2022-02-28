@@ -13,7 +13,7 @@ import CherryService from '../services/CherryService';
 const columns = [
   { id: 'number', label: 'Course Number', minWidth: 100 },
   { id: 'course_name', label: 'Course Title', minWidth: 170 },
-  { id: 'gpa', label: 'GPA', minWidth: 170 },
+  { id: 'gpa', label: 'GPA', minWidth: 50 },
 ];
 
 const CourseTable = ({preferences}) => {
@@ -75,8 +75,15 @@ const CourseTable = ({preferences}) => {
                         return (
                           <TableCell key={column.id} align={column.align}>
                             {column.format && typeof value === 'number'
-                              ? column.format(value)
-                              : column.id === 'course_name' ? <a href={`https://courses.illinois.edu/schedule/2022/spring/${row['number'].substr(0, row['number'].indexOf(" "))}/${row['number'].substr(row['number'].indexOf(" ") + 1)}`} target="_blank" rel="noreferrer noopener">{value}</a> : value}
+                              ? column.format(value) : 
+                              column.id === 'course_name' ? 
+                                <a href={`https://courses.illinois.edu/schedule/2022/spring/${row['number'].substr(0, row['number'].indexOf(" "))}/${row['number'].substr(row['number'].indexOf(" ") + 1)}`} 
+                                  target="_blank" rel="noreferrer noopener">
+                                  {value}
+                                </a> : 
+                                (column.id === 'gpa' && value) ? 
+                                  Math.round(value*100)/100 : 
+                                  value}
                           </TableCell>
                         );
                         console.log(row['number']);

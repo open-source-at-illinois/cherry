@@ -23,17 +23,28 @@ const HomePage = () => {
 
     const containerStyle = {
         padding: 0,
+        display:"flex",
+        flexDirection:"row",
+        justifyContent:"Center"
+        
     };
-    const itemStyle = {
+    const preferencesStyle = {
         padding: 1,
+        display: "flex"
+    };
+    const tableStyle = {
+        padding: 1,
+        display: "flex"
+        // width: "100%"
+
     };
     return (
         <>
             <Grid container sx={containerStyle}>
-                <Grid item sx={itemStyle}>
+                <Grid item sx={preferencesStyle}>
                     <Preferences preferences={preferences} setPreferences={setPreferences}/>
                 </Grid>
-                <Grid item sx={itemStyle}>
+                <Grid item sx={tableStyle}>
                     <CourseTable preferences={preferences}/>
                 </Grid>
             </Grid>
