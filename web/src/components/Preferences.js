@@ -24,21 +24,12 @@ const Preferences = ({preferences, setPreferences}) => {
 
     return (
         <>
-            <Card sx={{ minWidth: 275, backgroundColor: "#f5f5f5" }} variant="outlined">
+            <Card sx={{ backgroundColor: "#f5f5f5" }} variant="outlined">
                 <Typography variant="h5" sx={{padding:1}}>
                     Preferences
                 </Typography>
                 <SearchBar />
                 <GenEdSelector geneds={preferences.geneds} setGenEds={updateGenEds}/>
-                {/* <CardContent>
-                    <SliderComponent label='Rate My Professor' 
-                        value={getSliderValue(prefs.rateMyProfessor)}
-                        onChangeCommitted={handleSliderChange(prefs.rateMyProfessor)} 
-                        defaultValue={30} 
-                        min={0} 
-                        max={99} 
-                        step={10}/>
-                </CardContent> */}
             </Card>
         </>
     )
