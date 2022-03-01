@@ -7,7 +7,7 @@ import { Typography } from '@mui/material';
 import { useState } from 'react'
 const label = { inputProps: { 'aria-label': 'Checkbox' } };
 
-const GenEdSelector = ({ geneds = {}, setGenEds }) => {
+const GenEdSelector = ({ geneds, setGenEds }) => {
 
   const genEdIds = {
     AC: "Advanced Composition",
