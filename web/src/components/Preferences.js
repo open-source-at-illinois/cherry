@@ -22,13 +22,17 @@ const Preferences = ({preferences, setPreferences}) => {
         setPreferences({...preferences, geneds: geneds});
     }
 
+    const updateSearchTerm = (newSearchTerm) => {
+        setPreferences({...preferences, searchTerm: newSearchTerm});
+    }
+    
     return (
         <>
             <Card sx={{ backgroundColor: "#f5f5f5" }} variant="outlined">
                 <Typography variant="h5" sx={{padding:1}}>
                     Preferences
                 </Typography>
-                <SearchBar />
+                <SearchBar searchTerm={preferences.searchTerm} setSearchTerm={updateSearchTerm} />
                 <GenEdSelector geneds={preferences.geneds} setGenEds={updateGenEds}/>
             </Card>
         </>
