@@ -10,10 +10,12 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Link from '@mui/material/Link';
+import useWindowDimensions from './useWindowDimensions';
 
 
 const ResponsiveAppBar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const { height, width } = useWindowDimensions();
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -34,7 +36,7 @@ const ResponsiveAppBar = () => {
         <AppBar position="static" elevation={0}>
             <Container maxWidth="xl" sx={navStyle}>
                 <Toolbar disableGutters>
-                    <Container>
+                    <Container sx={{ display: width > 900 ? 'flex' : 'none', flexGrow: 1 }}>
                         <Typography
                             variant="h4"
                             noWrap
@@ -44,7 +46,7 @@ const ResponsiveAppBar = () => {
                             <Link href="/home" underline="none" color='#0E0063' variant="h4">Cherry</Link>
                         </Typography>
                     </Container>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -94,7 +96,7 @@ const ResponsiveAppBar = () => {
                         variant={navVariant}
                         noWrap
                         component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+                        sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } , alignItems: 'center', justifyContent: 'center'}}
                     >
                         <Link href="/home" underline="none" color='#0E0063' variant="h4">Cherry</Link>
                     </Typography>
