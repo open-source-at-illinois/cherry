@@ -9,7 +9,7 @@ Cherry aims to solve this to make course picking super easy. Just open Cherry, a
 
 ## Contributing
 
-See Contributing.md for detailed guidelines on contributing to Cherry 🍒
+See [ONBOARDING.md](https://github.com/open-source-at-illinois/cherry/blob/main/ONBOARDING.md) for detailed guidelines on contributing to Cherry 🍒
 
 ## Project Charter
 
