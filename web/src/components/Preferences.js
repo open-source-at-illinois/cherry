@@ -3,7 +3,8 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import SliderComponent from "./SliderComponent";
 import { Checkbox, Typography } from "@mui/material";
-import GenEdSelector from "./GenEdSelector";
+import GenEdSelector from "./GenEdSelectorMobile";
+//import GenEdSelector from "./GenEdSelector";
 
 const Preferences = ({preferences, setPreferences}) => {
 

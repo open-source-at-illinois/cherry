@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "react-multi-select-component": "^4.2.3",
+    "react-select": "^5.2.2"
+  }
+}
