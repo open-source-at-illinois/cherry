@@ -12,10 +12,12 @@ import DialogActions from '@mui/material/DialogActions';
 import Dialog from '@mui/material/Dialog';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import SearchBar from "./SearchBar";
+
 const label = { inputProps: { 'aria-label': 'Checkbox' } };
 
 
-const GenEdSelector = ({ geneds = {}, setGenEds, open, setOpen, onClose, value, setValue}) => {
+const GenEdSelector = ({ geneds = {}, setGenEds, open, setOpen, onClose, value, setValue, searchTerm, setSearchTerm}) => {
   const genEdIds = {
     AC: "Advanced Composition",
     WCC: "Western/Comparative Culture",
@@ -68,6 +70,7 @@ const GenEdSelector = ({ geneds = {}, setGenEds, open, setOpen, onClose, value, 
       open={open}
     >
       <DialogTitle>Gen Ed Preferences</DialogTitle>
+      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <DialogContent dividers>
         <RadioGroup
           ref={radioGroupRef}
@@ -108,7 +111,7 @@ GenEdSelector.propTypes = {
   value: PropTypes.string.isRequired,
 };
 
-export default function GenEdSelectorMobile({ geneds = {}, setGenEds }) {
+export default function GenEdSelectorMobile({ geneds = {}, setGenEds, searchTerm, setSearchTerm }) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState('None');
   {console.log(value)}
@@ -148,6 +151,8 @@ export default function GenEdSelectorMobile({ geneds = {}, setGenEds }) {
             onClose={handleClose}
             value={value}
             setValue={setValue}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
         />
       </List>
     </Box>

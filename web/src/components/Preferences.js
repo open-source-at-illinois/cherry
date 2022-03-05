@@ -1,11 +1,8 @@
 import React from "react";
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import SliderComponent from "./SliderComponent";
 import { Checkbox, Typography } from "@mui/material";
 import GenEdSelector from "./GenEdSelector";
 import GenEdSelectorMobile from "./GenEdSelectorMobile";
-// import SearchBar from "./SearchBar";
 
 const Preferences = ({preferences, setPreferences}) => {
 
@@ -33,8 +30,6 @@ const Preferences = ({preferences, setPreferences}) => {
                 <Typography variant="h5" sx={{padding:1}}>
                     Preferences
                 </Typography>
-                {/* <SearchBar searchTerm={preferences.searchTerm} setSearchTerm={updateSearchTerm} /> */}
-                {/* <GenEdSelector geneds={preferences.geneds} setGenEds={updateGenEds}/> */}
                 <GenEdSelectorMobile geneds={preferences.geneds} setGenEds={updateGenEds} searchTerm={preferences.searchTerm} setSearchTerm={updateSearchTerm} />
             </Card>
         </>
