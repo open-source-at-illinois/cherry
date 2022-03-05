@@ -41,7 +41,7 @@ const ResponsiveAppBar = () => {
                             variant="h4"
                             noWrap
                             component="div"
-                            sx={{ mr: 2, display: { xs: 'none', md: 'flex'} }}
+                            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                         >
                             <Link href="/home" underline="none" color='#0E0063' variant="h4">Cherry</Link>
                         </Typography>
@@ -96,7 +96,7 @@ const ResponsiveAppBar = () => {
                         variant={navVariant}
                         noWrap
                         component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } , alignItems: 'center', justifyContent: 'center'}}
+                        sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, alignItems: 'center', justifyContent: 'center' }}
                     >
                         <Link href="/home" underline="none" color='#0E0063' variant="h4">Cherry</Link>
                     </Typography>
@@ -104,7 +104,7 @@ const ResponsiveAppBar = () => {
                         <Button
                             key='Analytics'
                             onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
+                            sx={{ my: 2, color: 'white', display: 'block', paddingLeft: 10, paddingRight: 10 }}
                         >
                             <Typography textAlign="center">
                                 <Link href='/analytics' underline="none" color='#0E0063' variant={navVariant}>Analytics</Link>
@@ -113,7 +113,7 @@ const ResponsiveAppBar = () => {
                         <Button
                             key='About'
                             onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
+                            sx={{ my: 2, color: 'white', display: 'block', paddingLeft: 10, paddingRight: 10 }}
                         >
                             <Typography textAlign="center">
                                 <Link href='/about' underline="none" color='#0E0063' variant={navVariant}>About</Link>
@@ -122,7 +122,7 @@ const ResponsiveAppBar = () => {
                         <Button
                             key='Login'
                             onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
+                            sx={{ my: 2, color: 'white', display: 'block', paddingLeft: 10, paddingRight: 10 }}
                         >
                             <Typography textAlign="center">
                                 <Link href='/login' underline="none" color='#0E0063' variant={navVariant}>Login</Link>
