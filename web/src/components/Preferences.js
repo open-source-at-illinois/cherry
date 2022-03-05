@@ -4,6 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import SliderComponent from "./SliderComponent";
 import { Checkbox, Typography } from "@mui/material";
 import GenEdSelector from "./GenEdSelector";
+import GenEdSelectorMobile from "./GenEdSelectorMobile";
 
 const Preferences = ({preferences, setPreferences}) => {
 
@@ -27,7 +28,8 @@ const Preferences = ({preferences, setPreferences}) => {
                 <Typography variant="h5" sx={{padding:1}}>
                     Preferences
                 </Typography>
-                <GenEdSelector geneds={preferences.geneds} setGenEds={updateGenEds}/>
+                {/* <GenEdSelector geneds={preferences.geneds} setGenEds={updateGenEds}/> */}
+                <GenEdSelectorMobile geneds={preferences.geneds} setGenEds={updateGenEds}/>
                 {/* <CardContent>
                     <SliderComponent label='Rate My Professor' 
                         value={getSliderValue(prefs.rateMyProfessor)}
