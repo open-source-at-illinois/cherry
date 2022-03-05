@@ -5,6 +5,7 @@ import SliderComponent from "./SliderComponent";
 import { Checkbox, Typography } from "@mui/material";
 import GenEdSelector from "./GenEdSelector";
 import GenEdSelectorMobile from "./GenEdSelectorMobile";
+// import SearchBar from "./SearchBar";
 
 const Preferences = ({preferences, setPreferences}) => {
 
@@ -22,23 +23,19 @@ const Preferences = ({preferences, setPreferences}) => {
         setPreferences({...preferences, geneds: geneds});
     }
 
+    const updateSearchTerm = (newSearchTerm) => {
+        setPreferences({...preferences, searchTerm: newSearchTerm});
+    }
+    
     return (
         <>
-            <Card sx={{ minWidth: 275, backgroundColor: "#f5f5f5" }} variant="outlined">
+            <Card sx={{ backgroundColor: "#f5f5f5" }} variant="outlined">
                 <Typography variant="h5" sx={{padding:1}}>
                     Preferences
                 </Typography>
+                {/* <SearchBar searchTerm={preferences.searchTerm} setSearchTerm={updateSearchTerm} /> */}
                 {/* <GenEdSelector geneds={preferences.geneds} setGenEds={updateGenEds}/> */}
-                <GenEdSelectorMobile geneds={preferences.geneds} setGenEds={updateGenEds}/>
-                {/* <CardContent>
-                    <SliderComponent label='Rate My Professor' 
-                        value={getSliderValue(prefs.rateMyProfessor)}
-                        onChangeCommitted={handleSliderChange(prefs.rateMyProfessor)} 
-                        defaultValue={30} 
-                        min={0} 
-                        max={99} 
-                        step={10}/>
-                </CardContent> */}
+                <GenEdSelectorMobile geneds={preferences.geneds} setGenEds={updateGenEds} searchTerm={preferences.searchTerm} setSearchTerm={updateSearchTerm} />
             </Card>
         </>
     )

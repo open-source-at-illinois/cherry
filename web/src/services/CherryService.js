@@ -30,6 +30,13 @@ const getAllCourses = async (params) => {
     if (genedList) {
         queryParams.geneds = genedList;
     }
+    if(params.options.searchTerm) {
+        queryParams.searchTerm = params.options.searchTerm.trim();
+        // get rid of all spaces
+        queryParams.searchTerm = queryParams.searchTerm.replace(/\s/g, '');
+        // convert to uppercase
+        queryParams.searchTerm = queryParams.searchTerm.toUpperCase();
+    }
     const promise = axios.get(params.page ? `${apiUri}/2021/spring/${params.page}` : `${apiUri}/2021/spring/1`, {
         params: queryParams
     });

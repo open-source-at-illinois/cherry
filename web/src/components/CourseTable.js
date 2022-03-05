@@ -9,6 +9,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { useEffect } from 'react';
 import CherryService from '../services/CherryService';
+import * as Constants from '../constants';
 
 const columns = [
   { id: 'number', label: 'Course Number', minWidth: 100 },
@@ -47,6 +48,15 @@ const CourseTable = ({preferences}) => {
     setPage(newPage - 1);
   };
 
+  const courseExplorerURL = (row) => {
+    const value = row['course_name'];
+    const subject = row['number'].substr(0, row['number'].indexOf(" "));
+    const number = row['number'].substr(row['number'].indexOf(" ") + 1);
+    return (
+      <a href={`${Constants.COURSEEXPLORERURL}${subject}/${number}`} target="_blank" rel="noreferrer noopener">{value}</a>
+    )
+  }
+
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 440 }}>
@@ -77,16 +87,13 @@ const CourseTable = ({preferences}) => {
                             {column.format && typeof value === 'number'
                               ? column.format(value) : 
                               column.id === 'course_name' ? 
-                                <a href={`https://courses.illinois.edu/schedule/2022/spring/${row['number'].substr(0, row['number'].indexOf(" "))}/${row['number'].substr(row['number'].indexOf(" ") + 1)}`} 
-                                  target="_blank" rel="noreferrer noopener">
-                                  {value}
-                                </a> : 
+                                courseExplorerURL(row) 
+                                : 
                                 (column.id === 'gpa' && value) ? 
                                   Math.round(value*100)/100 : 
                                   value}
                           </TableCell>
                         );
-                        console.log(row['number']);
                       })
                       }
                     </TableRow>
