@@ -9,11 +9,12 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { useEffect } from 'react';
 import CherryService from '../services/CherryService';
+import * as Constants from '../constants';
 
 const columns = [
-  { id: 'number', label: 'Course Number', minWidth: 100 },
-  { id: 'course_name', label: 'Course Title', minWidth: 170 },
-  { id: 'gpa', label: 'GPA', minWidth: 170 },
+  { id: 'Course Number', label: 'Course Number', minWidth: 100 },
+  { id: 'Course Name', label: 'Course Title', minWidth: 170 },
+  { id: 'GPA', label: 'GPA', minWidth: 170 },
 ];
 
 const CourseTable = ({preferences}) => {
@@ -47,6 +48,15 @@ const CourseTable = ({preferences}) => {
     setPage(newPage - 1);
   };
 
+  const courseExplorerURL = (row) => {
+    const value = row['course_name'];
+    const subject = row['number'].substr(0, row['number'].indexOf(" "));
+    const number = row['number'].substr(row['number'].indexOf(" ") + 1);
+    return (
+      <a href={`${Constants.COURSEEXPLORERURL}${subject}/${number}`} target="_blank" rel="noreferrer noopener">{value}</a>
+    )
+  }
+
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 440 }}>
@@ -76,7 +86,7 @@ const CourseTable = ({preferences}) => {
                           <TableCell key={column.id} align={column.align}>
                             {column.format && typeof value === 'number'
                               ? column.format(value)
-                              : value}
+                              : column.id === 'course_name' ? value : value}
                           </TableCell>
                         );
                       })
