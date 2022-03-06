@@ -12,9 +12,9 @@ import CherryService from '../services/CherryService';
 import * as Constants from '../constants';
 
 const columns = [
-  { id: 'number', label: 'Course Number', minWidth: 100 },
-  { id: 'course_name', label: 'Course Title', minWidth: 170 },
-  { id: 'gpa', label: 'GPA', minWidth: 170 },
+  { id: 'Course Number', label: 'Course Number', minWidth: 100 },
+  { id: 'Course Name', label: 'Course Title', minWidth: 170 },
+  { id: 'GPA', label: 'GPA', minWidth: 170 },
 ];
 
 const CourseTable = ({preferences}) => {
@@ -86,7 +86,7 @@ const CourseTable = ({preferences}) => {
                           <TableCell key={column.id} align={column.align}>
                             {column.format && typeof value === 'number'
                               ? column.format(value)
-                              : column.id === 'course_name' ? courseExplorerURL(row) : value}
+                              : column.id === 'course_name' ? value : value}
                           </TableCell>
                         );
                       })
