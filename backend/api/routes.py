@@ -1,10 +1,10 @@
-from dataclasses import dataclass
-from .app import app, db
-from flask import request, jsonify
-from .query import geneds_filter
-import pandas as pd
+# from dataclasses import dataclass
+# from .app import app, db
+# from flask import request, jsonify
+# from .query import geneds_filter
+# import pandas as pd
 
-courses = pd.read_csv('data/courses_2021_desc.csv')
+# courses = pd.read_csv('data/courses_2021_desc.csv')
 
 # def parse_courses(page, geneds):
 #     # filter courses based on geneds
