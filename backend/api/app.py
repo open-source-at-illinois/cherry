@@ -16,19 +16,16 @@ CORS(app)
 
 
 def parse_courses(page, geneds):
-    # filter courses based on geneds
-    # def gened_check(geneds, course):
-    #     for gened in geneds:
-    #         if gened in course['geneds']:
-    #             return True
-    #     return False
-    # if geneds is not empty, filter courses
     if len(geneds) == 0:
         pass
+
     # sort courses by descending GPA
     course_list = course_data[['Course Name', 'GPA', 'Course Number', 'geneds']]
+    for gened in geneds:
+        course_list = course_list[course_list['geneds'].apply(lambda x: gened in x)]
+
     course_list = course_list.sort_values(by=['GPA'], ascending=False)
-    # paginate course list
+
     course_list = course_list.iloc[int(page)*100:int(page)*100+100]
     return (course_data.shape[0], course_list.to_dict(orient='records'))
 
