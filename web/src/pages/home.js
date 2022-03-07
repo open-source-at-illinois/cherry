@@ -1,6 +1,6 @@
 import React from "react";
 import Preferences from "../components/Preferences";
-import { Grid } from "@mui/material";
+import { Box } from "@mui/material";
 import CourseTable from '../components/CourseTable';
 import { useState } from "react";
 
@@ -24,20 +24,31 @@ const HomePage = () => {
 
     const containerStyle = {
         padding: 0,
+        display:"flex",
+        flexDirection:"row",
+        justifyContent:"Center",
+        maxHeight:"80vh",
     };
-    const itemStyle = {
+    const preferencesStyle = {
         padding: 1,
+        display: "flex"
+    };
+    const tableStyle = {
+        padding: 1,
+        display: "flex",
+        // width: "100%"
+
     };
     return (
         <>
-            <Grid container sx={containerStyle}>
-                <Grid item sx={itemStyle}>
+            <Box container sx={containerStyle}>
+                <Box item sx={preferencesStyle}>
                     <Preferences preferences={preferences} setPreferences={setPreferences}/>
-                </Grid>
-                <Grid item sx={itemStyle}>
+                </Box>
+                <Box item sx={tableStyle}>
                     <CourseTable preferences={preferences}/>
-                </Grid>
-            </Grid>
+                </Box>
+            </Box>
         </>
     )
 }

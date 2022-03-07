@@ -60,7 +60,7 @@ const AboutPage = () => {
         borderRadius: '10px',
         width: '100px',
         marginLeft: '1.5%',
-        border: '4px solid #000'
+        border: '4px solid #000',
     }
     return (
         <>
@@ -89,7 +89,7 @@ const AboutPage = () => {
         <div style={{textAlign: 'left', marginLeft: '1.5%'}}>
             <b>Project Contributors:</b>
         </div>
-        <Grid sx={contributorStyle}>
+        <Grid container sx={contributorStyle}>
             {contributors.map(contributor => 
                     <div>
                         <img src={contributor.avatar_url} alt={contributor.login} style={contritbutorImg}></img>
