@@ -12,8 +12,9 @@ const getAllCourses = async (params) => {
     if (genedList) {
         queryParams.geneds = genedList;
     }
-    if(params.options.depts) {
-        queryParams.depts = params.options.depts.trim();
+    if(params.options.searchTerm) {
+        queryParams.depts = params.options.searchTerm;
+        queryParams.depts = queryParams.depts.trim();
         // get rid of all spaces
         queryParams.depts = queryParams.depts.replace(/\s/g, '');
         // convert to uppercase
