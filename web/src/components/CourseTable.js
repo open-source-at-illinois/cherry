@@ -26,16 +26,11 @@ const CourseTable = ({preferences}) => {
   const [rows, setRows] = React.useState({ 1: [] });
 
   useEffect(() => {
-    // console.log('useEffect');
-    // console.log(preferences);
     CherryService.getAllCourses({ page: 0, options: preferences }).then(response => {
-      console.log(response);
-      setRows({ 1: response.courses })
-      setRowsCount(response.total ? response.total : 2000);
+      setRows({ 1: response.courses });
+      // console.log(response.courses);
+      setRowsCount(response.total ? response.total : 0);
     });
-    // CherryService.getCourseListMeta().then(response => {
-    //   setRowsCount(response.numberOfCourses); 
-    // });
   }, [preferences]);
 
   const handleChangePage = async (event, newPage) => {
@@ -49,17 +44,18 @@ const CourseTable = ({preferences}) => {
   };
 
   const courseExplorerURL = (row) => {
-    const value = row['course_name'];
-    const subject = row['number'].substr(0, row['number'].indexOf(" "));
-    const number = row['number'].substr(row['number'].indexOf(" ") + 1);
+    const value = row['Course Name'];
+    const subject = row['Course Number'].substr(0, row['Course Number'].indexOf(" "));
+    const number = row['Course Number'].substr(row['Course Number'].indexOf(" ") + 1);
     return (
       <a href={`${Constants.COURSEEXPLORERURL}${subject}/${number}`} target="_blank" rel="noreferrer noopener">{value}</a>
     )
   }
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+    <Paper sx={{
+      width: 0.8, overflow: 'hidden'}}>
+      <TableContainer sx={{ maxHeight: '85%' }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -86,7 +82,7 @@ const CourseTable = ({preferences}) => {
                           <TableCell key={column.id} align={column.align}>
                             {column.format && typeof value === 'number'
                               ? column.format(value)
-                              : column.id === 'course_name' ? value : value}
+                              : column.id === 'Course Name' ? courseExplorerURL(row) : value}
                           </TableCell>
                         );
                       })

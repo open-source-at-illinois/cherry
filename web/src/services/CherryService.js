@@ -1,26 +1,7 @@
 import axios from 'axios';
 
-const baseUrl = 'https://localhost:5000';
-
-// const optimizeCourses = (requestData) => {
-//     console.log(requestData);
-//     // axios.get(`${baseUrl}/optimize/`, {
-//     //     params: {
-//     //         request: requestData
-//     //     }
-//     // });
-//     return dummyCourses;
-// };
-
-// const getSection = (requestData) => {
-//     console.log(requestData);
-//     // return axios.get(`${baseUrl}/sections/${requestData.class_id}`);
-//     return dummySections;
-// }
-
-// const s3Uri = 'https://cherry-static.opensourceatillinois.com';
-// const apiUri = 'https://cherry-api.opensourceatillinois.com';
-const apiUri = 'http://127.0.0.1:5000/';
+const apiUri = 'https://cherry-api.opensourceatillinois.com';
+// const apiUri = 'http://127.0.0.1:5000/';
 
 const getAllCourses = async (params) => {
     var queryParams = {};
@@ -31,10 +12,18 @@ const getAllCourses = async (params) => {
     if (genedList) {
         queryParams.geneds = genedList;
     }
-    const promise = axios.get(params.page ? `${apiUri}/2021/spring/${params.page}` : `${apiUri}/2021/spring/0`, {
+    if(params.options.depts) {
+        queryParams.depts = params.options.depts.trim();
+        // get rid of all spaces
+        queryParams.depts = queryParams.depts.replace(/\s/g, '');
+        // convert to uppercase
+        queryParams.depts = queryParams.depts.toUpperCase();
+    }
+    console.log(queryParams);
+    const promise = axios.get(params.page ? `${apiUri}/2021/spring/${params.page}` : `${apiUri}`, {
         params: queryParams
     });
-    return await promise.then(response => response.data);
+    return await promise.then(response => response.data).then(response => { response.courses = JSON.parse(response.courses);});
 }
 
 const getCourseListMeta = () => {
