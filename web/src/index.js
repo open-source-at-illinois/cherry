@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from "react-router-dom"
 import Container from '@mui/material/Container';
 import NavBar from './components/NavBar';
+import ResponsiveAppBar from './components/ResponsiveNavBar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const themeOptions = createTheme({
@@ -19,15 +20,19 @@ const themeOptions = createTheme({
 
 ReactDOM.render(
   <React.StrictMode>
+  <div>
     <Router>
       <ThemeProvider theme={themeOptions}>
-        <NavBar />
-        <div style={{ paddingLeft: "50px", paddingTop:"2  0px" }}>
+        <div>
+          <ResponsiveAppBar />
+        </div>
+        <div style={{height:"80vh", overflowY:"auto", paddingLeft: "50px", paddingRight: "50px", paddingTop:"20px" }}>
           <App />
         </div>
         <div className="spacer curve1"></div>
       </ThemeProvider>
     </Router>
+    </div>
   </React.StrictMode>,
   document.getElementById('root')
 );
