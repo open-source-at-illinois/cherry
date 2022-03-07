@@ -11,13 +11,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Dialog from '@mui/material/Dialog';
 import RadioGroup from '@mui/material/RadioGroup';
-import Radio from '@mui/material/Radio';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import SearchBar from "./SearchBar";
+
 const label = { inputProps: { 'aria-label': 'Checkbox' } };
-//import { MultiSelect } from "react-multi-select-component";
 
 
-function GenEdSelector(geneds, setGenEds) {
+const GenEdSelector = ({ geneds = {}, setGenEds, open, setOpen, onClose, value, setValue, searchTerm, setSearchTerm}) => {
   const genEdIds = {
     AC: "Advanced Composition",
     WCC: "Western/Comparative Culture",
@@ -29,15 +29,13 @@ function GenEdSelector(geneds, setGenEds) {
     QRB: "Quantitative Reasoning II",
     SBS: "Social and Behavioral Sciences",
   }
-  const { onClose, value: valueProp, open, ...other } = geneds;
-  const [value, setValue] = React.useState(valueProp);
   const radioGroupRef = React.useRef(null);
 
   React.useEffect(() => {
     if (!open) {
-      setValue(valueProp);
+      setValue(value);
     }
-  }, [valueProp, open]);
+  }, [value, open]);
 
   const handleEntering = () => {
     if (radioGroupRef.current != null) {
@@ -54,6 +52,7 @@ function GenEdSelector(geneds, setGenEds) {
   };
 
   const handleChange = (event) => {
+    console.log(event.value);
     setValue(event.target.value);
   };
   const checkBoxUpdate = (genEdId) => {
@@ -69,9 +68,9 @@ function GenEdSelector(geneds, setGenEds) {
       maxWidth="xs"
       TransitionProps={{ onEntering: handleEntering }}
       open={open}
-      {...other}
     >
       <DialogTitle>Gen Ed Preferences</DialogTitle>
+      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <DialogContent dividers>
         <RadioGroup
           ref={radioGroupRef}
@@ -81,15 +80,19 @@ function GenEdSelector(geneds, setGenEds) {
           onChange={handleChange}
         >
           {Object.keys(genEdIds).map(genEdId => {
-            return (<FormControlLabel control={<Checkbox />} label={genEdIds[genEdId]} onChange={checkBoxUpdate(genEdId)} checked={geneds[genEdId]} />);
+            return (
+
+            <FormControlLabel 
+              key={genEdId}
+              control={<Checkbox />} 
+              label={genEdIds[genEdId]} 
+              onChange={checkBoxUpdate(genEdId)} 
+              checked={geneds[genEdId]} 
+            />
+            
+            );
           }
           )}
-            {/* <FormControlLabel
-              value={option}
-              key={option}
-              control={<Radio />}
-              label={option}
-            /> */}
         </RadioGroup>
       </DialogContent>
       <DialogActions>
@@ -108,9 +111,10 @@ GenEdSelector.propTypes = {
   value: PropTypes.string.isRequired,
 };
 
-export default function ConfirmationDialog() {
+export default function GenEdSelectorMobile({ geneds = {}, setGenEds, searchTerm, setSearchTerm }) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState('None');
+  {console.log(value)}
 
   const handleClickListItem = () => {
     setOpen(true);
@@ -138,29 +142,19 @@ export default function ConfirmationDialog() {
           <ListItemText primary="Gen Ed Preferences" secondary={value} />
         </ListItem>
         <GenEdSelector
-          id="gened-menu"
-          keepMounted
-          open={open}
-          onClose={handleClose}
-          value={value}
+            id="gened-menu"
+            keepMounted
+            geneds = {geneds}
+            setGenEds = {setGenEds}
+            open={open}
+            setOpen={setOpen}
+            onClose={handleClose}
+            value={value}
+            setValue={setValue}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
         />
       </List>
     </Box>
   );
 }
-//     const [selected, setSelected] = useState([]);
-//     return (
-//         <div>
-//         <pre>{JSON.stringify(selected)}</pre>
-//         <MultiSelect
-//           options={genEdId}
-//           value={selected}
-//           onChange={setSelected}
-//           labelledBy="Select"
-//         />
-//       </div>
-//     );
-    
-// };    
-
-// export default GenEdSelectorM;

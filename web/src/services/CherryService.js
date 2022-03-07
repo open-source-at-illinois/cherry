@@ -12,7 +12,14 @@ const getAllCourses = async (params) => {
     if (genedList) {
         queryParams.geneds = genedList;
     }
-    const promise = axios.get(params.page ? `${apiUri}/2021/spring/${params.page}` : `${apiUri}`, {
+    if(params.options.depts) {
+        queryParams.depts = params.options.depts.trim();
+        // get rid of all spaces
+        queryParams.depts = queryParams.depts.replace(/\s/g, '');
+        // convert to uppercase
+        queryParams.depts = queryParams.depts.toUpperCase();
+    }
+    const promise = axios.get(params.page ? `${apiUri}/2021/spring/${params.page}` : `${apiUri}/2021/spring/1`, {
         params: queryParams
     });
     return await promise.then(response => response.data);

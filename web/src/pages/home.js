@@ -17,7 +17,8 @@ const HomePage = () => {
             QRA: false,
             QRB: false,
             SBS: false
-        }
+        },
+        searchTerm: "",
     }
     );
 
