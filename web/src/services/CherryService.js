@@ -19,7 +19,8 @@ const baseUrl = 'https://localhost:5000';
 // }
 
 // const s3Uri = 'https://cherry-static.opensourceatillinois.com';
-const apiUri = 'https://cherry-api.opensourceatillinois.com';
+// const apiUri = 'https://cherry-api.opensourceatillinois.com';
+const apiUri = 'http://127.0.0.1:5000/';
 
 const getAllCourses = async (params) => {
     var queryParams = {};
@@ -30,7 +31,7 @@ const getAllCourses = async (params) => {
     if (genedList) {
         queryParams.geneds = genedList;
     }
-    const promise = axios.get(params.page ? `${apiUri}/2021/spring/${params.page}` : `${apiUri}/2021/spring/1`, {
+    const promise = axios.get(params.page ? `${apiUri}/2021/spring/${params.page}` : `${apiUri}/2021/spring/0`, {
         params: queryParams
     });
     return await promise.then(response => response.data);
