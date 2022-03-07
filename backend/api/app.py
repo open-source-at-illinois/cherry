@@ -14,7 +14,6 @@ app = Flask(__name__)
 # db = SQLAlchemy(app)
 CORS(app)
 
-
 def parse_courses(page, geneds, depts, query):
     if len(geneds) == 0:
         pass
