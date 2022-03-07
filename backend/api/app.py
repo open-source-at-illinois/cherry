@@ -37,7 +37,7 @@ def parse_courses(page, geneds, depts, query):
         total = len(course_list)
 
         course_list = course_list.iloc[int(page)*100:int(page)*100+100]
-        return (total, course_list.to_dict(orient='records'))
+        return (total, course_list.to_json(orient='records'))
     except KeyError:
         return (0, [])
 

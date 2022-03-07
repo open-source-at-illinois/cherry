@@ -23,7 +23,7 @@ const getAllCourses = async (params) => {
     const promise = axios.get(params.page ? `${apiUri}/2021/spring/${params.page}` : `${apiUri}`, {
         params: queryParams
     });
-    return await promise.then(response => response.data);
+    return await promise.then(response => response.data).then(response => { response.courses = JSON.parse(response.courses);});
 }
 
 const getCourseListMeta = () => {
