@@ -30,7 +30,8 @@ const Preferences = ({preferences, setPreferences}) => {
                 <Typography variant="h5" sx={{padding:1}}>
                     Preferences
                 </Typography>
-                <GenEdSelectorMobile geneds={preferences.geneds} setGenEds={updateGenEds} searchTerm={preferences.searchTerm} setSearchTerm={updateSearchTerm} />
+                <GenEdSelector geneds={preferences.geneds} setGenEds={updateGenEds}/>
+                {/* <GenEdSelectorMobile geneds={preferences.geneds} setGenEds={updateGenEds} searchTerm={preferences.searchTerm} setSearchTerm={updateSearchTerm} /> */}
             </Card>
         </>
     )

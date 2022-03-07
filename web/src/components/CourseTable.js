@@ -54,8 +54,9 @@ const CourseTable = ({preferences}) => {
   }
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+    <Paper sx={{
+      width: 0.8, overflow: 'hidden'}}>
+      <TableContainer sx={{ maxHeight: '85%' }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>

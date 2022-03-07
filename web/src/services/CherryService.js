@@ -19,7 +19,8 @@ const getAllCourses = async (params) => {
         // convert to uppercase
         queryParams.depts = queryParams.depts.toUpperCase();
     }
-    const promise = axios.get(params.page ? `${apiUri}/2021/spring/${params.page}` : `${apiUri}/2021/spring/1`, {
+    console.log(queryParams);
+    const promise = axios.get(params.page ? `${apiUri}/2021/spring/${params.page}` : `${apiUri}`, {
         params: queryParams
     });
     return await promise.then(response => response.data);
