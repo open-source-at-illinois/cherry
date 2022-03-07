@@ -14,23 +14,32 @@ app = Flask(__name__)
 # db = SQLAlchemy(app)
 CORS(app)
 
-
-def parse_courses(page, geneds):
-    # filter courses based on geneds
-    # def gened_check(geneds, course):
-    #     for gened in geneds:
-    #         if gened in course['geneds']:
-    #             return True
-    #     return False
-    # if geneds is not empty, filter courses
+def parse_courses(page, geneds, depts, query):
     if len(geneds) == 0:
         pass
+
     # sort courses by descending GPA
-    course_list = course_data[['Course Name', 'GPA', 'Course Number', 'geneds']]
-    course_list = course_list.sort_values(by=['GPA'], ascending=False)
-    # paginate course list
-    course_list = course_list.iloc[int(page)*100:int(page)*100+100]
-    return (course_data.shape[0], course_list.to_dict(orient='records'))
+    try:
+        course_list = course_data[['Course Name', 'GPA', 'Course Number', 'geneds', 'dept']]
+
+        for gened in geneds:
+            course_list = course_list[course_list['geneds'].apply(lambda x: gened in x)]
+
+        if query and len(query):
+            course_list = course_list[course_list['Course Name'].apply(lambda x: query.lower() in x.lower())]
+
+        if depts:
+            course_list = course_list[course_list['dept'].apply(lambda x: x in depts)]
+
+
+        course_list = course_list.sort_values(by=['GPA'], ascending=False)
+
+        total = len(course_list)
+
+        course_list = course_list.iloc[int(page)*100:int(page)*100+100]
+        return (total, course_list.to_dict(orient='records'))
+    except KeyError:
+        return (0, [])
 
 
 @app.route("/", defaults={'year': "2021", "term": "spring", 'page': "0"})
@@ -38,15 +47,25 @@ def parse_courses(page, geneds):
 @app.route("/<year>/<term>/<page>")
 def query(year, term, page):
     geneds_params = request.args.get('geneds')
+    dept_params = request.args.get('depts')
+    query_params = request.args.get('query')
 
     if geneds_params:
         geneds = geneds_params.split(",")
     else:
         geneds = []
+    if dept_params:
+        depts = dept_params.split(",")
+    else:
+        depts = []
 
-    total, courses = parse_courses(page, geneds)
+    if query_params:
+        query = str(query_params)
+    else:
+        query = ""
 
-    # print(courses)
+    total, courses = parse_courses(page, geneds, depts, query)
+
     return jsonify(
         {
             "total": total,
