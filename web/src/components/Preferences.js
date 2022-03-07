@@ -1,20 +1,21 @@
 import React from "react";
 import Card from '@mui/material/Card';
-import { Checkbox, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import GenEdSelector from "./GenEdSelector";
-import GenEdSelectorMobile from "./GenEdSelectorMobile";
+import SearchBar from "./SearchBar";
+// import GenEdSelectorMobile from "./GenEdSelectorMobile";
 
 const Preferences = ({preferences, setPreferences}) => {
 
-    const handleSliderChange = (parameter) => {
-        console.log(preferences)
-        return (event) => {
-            setPreferences({...preferences, [parameter]: event.target.value});
-        }
-    }
-    const getSliderValue = (parameter) => {
-        return () => preferences[parameter] || 20;
-    }
+    // const handleSliderChange = (parameter) => {
+    //     console.log(preferences)
+    //     return (event) => {
+    //         setPreferences({...preferences, [parameter]: event.target.value});
+    //     }
+    // }
+    // const getSliderValue = (parameter) => {
+    //     return () => preferences[parameter] || 20;
+    // }
 
     const updateGenEds = (geneds) => {
         setPreferences({...preferences, geneds: geneds});
@@ -30,6 +31,7 @@ const Preferences = ({preferences, setPreferences}) => {
                 <Typography variant="h5" sx={{padding:1}}>
                     Preferences
                 </Typography>
+                <SearchBar searchTerm={preferences.searchTerm} setSearchTerm={updateSearchTerm} />
                 <GenEdSelector geneds={preferences.geneds} setGenEds={updateGenEds}/>
                 {/* <GenEdSelectorMobile geneds={preferences.geneds} setGenEds={updateGenEds} searchTerm={preferences.searchTerm} setSearchTerm={updateSearchTerm} /> */}
             </Card>
