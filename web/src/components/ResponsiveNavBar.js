@@ -33,7 +33,7 @@ const ResponsiveAppBar = () => {
     const navVariant = "h6";
 
     return (
-        <AppBar position="static" elevation={0}>
+        <AppBar position="static" elevation={0} sx={{backgroundColor:'white'}} >
             <Container maxWidth="xl" sx={navStyle}>
                 <Toolbar disableGutters>
                     <Container sx={{ display: width > 900 ? 'flex' : 'none', flexGrow: 1 }}>
