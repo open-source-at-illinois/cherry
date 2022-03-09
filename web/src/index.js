@@ -26,9 +26,6 @@ ReactDOM.render(
         <div style={{height:"80vh", paddingTop:"0.1vh" }}>
           <App />
         </div>
-        {
-          <div className="spacer curve1"></div>
-        }
       </ThemeProvider>
     </Router>
     </div>

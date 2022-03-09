@@ -28,6 +28,7 @@ const CourseTable = ({preferences}) => {
   useEffect(() => {
     CherryService.getAllCourses({ page: 0, options: preferences }).then(response => {
       setRows({ 1: response.courses });
+      setPage(0);
       // console.log(response.courses);
       setRowsCount(response.total ? response.total : 0);
     });

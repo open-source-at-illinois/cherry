@@ -34,6 +34,7 @@ const HomePage = () => {
     const preferencesStyle = {
         padding: 1,
         display: "flex",
+        height: "fit-content",
     };
     const tableStyle = {
         paddingLeft: 1,
@@ -43,6 +44,7 @@ const HomePage = () => {
         <>
             {
                 (width > 900) ?
+                    <>
                     <Box container sx={containerStyle}>
                         <Box item sx={preferencesStyle}>
                             <Preferences preferences={preferences} setPreferences={setPreferences} />
@@ -51,6 +53,8 @@ const HomePage = () => {
                             <CourseTable preferences={preferences} />
                         </Box>
                     </Box> 
+                    <div className="spacer curve1"></div>
+                    </>
                     :
                     <>
                         <Box item sx={{diplay: 'flex'}}>
