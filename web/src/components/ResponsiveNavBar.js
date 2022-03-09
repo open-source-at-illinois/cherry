@@ -85,11 +85,16 @@ const ResponsiveAppBar = () => {
                                     <Link href='/about' underline="none" color='#0E0063' variant={navVariant}>About</Link>
                                 </Typography>
                             </MenuItem>
-                            <MenuItem key='Login' onClick={handleCloseNavMenu}>
+                            <MenuItem key='Github' onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center">
+                                    <Link href='https://github.com/open-source-at-illinois/cherry' underline="none" color='#0E0063' variant={navVariant}>Github</Link>
+                                </Typography>
+                            </MenuItem>
+                            {/* <MenuItem key='Login' onClick={handleCloseNavMenu}>
                                 <Typography textAlign="center">
                                     <Link href='/login' underline="none" color='#0E0063' variant={navVariant}>Login</Link>
                                 </Typography>
-                            </MenuItem>
+                            </MenuItem> */}
                         </Menu>
                     </Box>
                     <Typography
@@ -120,6 +125,15 @@ const ResponsiveAppBar = () => {
                             </Typography>
                         </Button>
                         <Button
+                            key='Github'
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white', display: 'block', paddingLeft: 10, paddingRight: 10 }}
+                        >
+                            <Typography textAlign="center">
+                                <Link href='https://github.com/open-source-at-illinois/cherry' underline="none" color='#0E0063' variant={navVariant}>Github</Link>
+                            </Typography>
+                        </Button>
+                        {/* <Button
                             key='Login'
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block', paddingLeft: 10, paddingRight: 10 }}
@@ -127,7 +141,7 @@ const ResponsiveAppBar = () => {
                             <Typography textAlign="center">
                                 <Link href='/login' underline="none" color='#0E0063' variant={navVariant}>Login</Link>
                             </Typography>
-                        </Button>
+                        </Button> */}
                     </Box>
                 </Toolbar>
             </Container>
