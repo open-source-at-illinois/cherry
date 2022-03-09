@@ -1,10 +1,8 @@
 import React from "react";
 import Card from '@mui/material/Card';
-import { Typography } from "@mui/material";
+// import { Typography } from "@mui/material";
 import GenEdSelector from "./GenEdSelector";
 import SearchBar from "./SearchBar";
-import { margin } from "@mui/system";
-// import GenEdSelectorMobile from "./GenEdSelectorMobile";
 
 const Preferences = ({preferences, setPreferences}) => {
 
@@ -26,20 +24,20 @@ const Preferences = ({preferences, setPreferences}) => {
         setPreferences({...preferences, searchTerm: newSearchTerm});
     }
     
+
     const preferencesStyle = {
         margin: 10
     }
 
     return (
         <>
-            <Card sx={{ backgroundColor: "#f5f5f5" }} variant="outlined">
+            <Card sx={{ backgroundColor: "#f5f5f5", margin:3 }} variant="outlined">
                 <div style={preferencesStyle}>
                     <SearchBar searchTerm={preferences.searchTerm} setSearchTerm={updateSearchTerm} />
                 </div>
                 <div style={preferencesStyle}>
                     <GenEdSelector geneds={preferences.geneds} setGenEds={updateGenEds}/>
                 </div>
-                {/* <GenEdSelectorMobile geneds={preferences.geneds} setGenEds={updateGenEds} searchTerm={preferences.searchTerm} setSearchTerm={updateSearchTerm} /> */}
             </Card>
         </>
     )

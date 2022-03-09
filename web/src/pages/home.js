@@ -9,7 +9,7 @@ const HomePage = () => {
 
     const [preferences, setPreferences] = useState({
         geneds: {
-            AC: false, 
+            AC: false,
             WCC: false,
             NWC: false,
             USMC: false,
@@ -41,25 +41,28 @@ const HomePage = () => {
     };
     return (
         <>
-        {
-            (width > 900) ?
-            <Box container sx={containerStyle}>
-                <Box item sx={preferencesStyle}>
-                    <Preferences preferences={preferences} setPreferences={setPreferences}/>
-                </Box>
-                <Box item sx={tableStyle}>
-                    <CourseTable preferences={preferences}/>
-                </Box>
-            </Box>
-            : 
-            <>
-            <Box container sx={containerStyle}>
-                <Box item sx={tableStyle}>
-                    <CourseTable preferences={preferences} />
-                </Box>
-            </Box>
-            </>
-        }
+            {
+                (width > 900) ?
+                    <Box container sx={containerStyle}>
+                        <Box item sx={preferencesStyle}>
+                            <Preferences preferences={preferences} setPreferences={setPreferences} />
+                        </Box>
+                        <Box item sx={tableStyle}>
+                            <CourseTable preferences={preferences} />
+                        </Box>
+                    </Box> 
+                    :
+                    <>
+                        <Box item sx={{diplay: 'flex'}}>
+                            <Preferences preferences={preferences} setPreferences={setPreferences} />
+                        </Box>
+                        <Box container sx={containerStyle}>
+                            <Box item sx={tableStyle}>
+                                <CourseTable preferences={preferences} />
+                            </Box>
+                        </Box>
+                    </>
+            }
         </>
     )
 }
