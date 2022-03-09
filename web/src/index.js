@@ -4,8 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from "react-router-dom"
-import Container from '@mui/material/Container';
-import NavBar from './components/NavBar';
 import ResponsiveAppBar from './components/ResponsiveNavBar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -23,13 +21,13 @@ ReactDOM.render(
   <div>
     <Router>
       <ThemeProvider theme={themeOptions}>
-        <div>
-          <ResponsiveAppBar />
-        </div>
-        <div style={{height:"80vh", overflowY:"auto", paddingLeft: "50px", paddingRight: "50px", paddingTop:"20px" }}>
+        <ResponsiveAppBar />
+        <div style={{height:"80vh", paddingTop:"0.1vh" }}>
           <App />
         </div>
-        <div className="spacer curve1"></div>
+        {
+          // <div className="spacer curve1"></div>
+        }
       </ThemeProvider>
     </Router>
     </div>

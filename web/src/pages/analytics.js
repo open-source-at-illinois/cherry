@@ -71,7 +71,7 @@ const AnalyticsPage = () => {
                     <div >
                         <img
                             src={Image1}
-                            alt="Graph 1"
+                            alt="Graph showing the average rating of the instructors"
                             className={styles.image}
                             onClick={() => handleOpen(Image1)}
                         />
@@ -95,7 +95,7 @@ const AnalyticsPage = () => {
                 <Box sx={style}>
                     <img
                         src={popupImage}
-                        alt="Popup Image"
+                        alt="Graph showing the number of instructors versus the average difficulty of the instructors as provided by RateMyProfessors"
                         className={styles.image_popup}
                     />
                 </Box>

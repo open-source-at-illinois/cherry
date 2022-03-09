@@ -3,10 +3,11 @@ import Preferences from "../components/Preferences";
 import { Box } from "@mui/material";
 import CourseTable from '../components/CourseTable';
 import { useState } from "react";
+import useWindowDimensions from '../useWindowDimensions';
 
 const HomePage = () => {
 
-    const [preferences, setPreferences] = React.useState({
+    const [preferences, setPreferences] = useState({
         geneds: {
             AC: false, 
             WCC: false,
@@ -22,25 +23,26 @@ const HomePage = () => {
     }
     );
 
+    const { height, width } = useWindowDimensions();
+
     const containerStyle = {
-        padding: 0,
         display:"flex",
         flexDirection:"row",
-        justifyContent:"Center",
+        justifyContent:"center",
         maxHeight:"80vh",
     };
     const preferencesStyle = {
         padding: 1,
-        display: "flex"
+        display: "flex",
     };
     const tableStyle = {
-        padding: 1,
+        paddingLeft: 1,
         display: "flex",
-        // width: "100%"
-
     };
     return (
         <>
+        {
+            (width > 900) ?
             <Box container sx={containerStyle}>
                 <Box item sx={preferencesStyle}>
                     <Preferences preferences={preferences} setPreferences={setPreferences}/>
@@ -49,6 +51,15 @@ const HomePage = () => {
                     <CourseTable preferences={preferences}/>
                 </Box>
             </Box>
+            : 
+            <>
+            <Box container sx={containerStyle}>
+                <Box item sx={tableStyle}>
+                    <CourseTable preferences={preferences} />
+                </Box>
+            </Box>
+            </>
+        }
         </>
     )
 }

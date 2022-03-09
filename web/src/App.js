@@ -7,7 +7,7 @@ import AnalyticsPage from './pages/analytics';
 function App() {
   return (
     <>
-    <div className="App">
+    <div>
       <Switch>
         <Route path="/login">
           <h2>TODO: Login with Shibboleth</h2>

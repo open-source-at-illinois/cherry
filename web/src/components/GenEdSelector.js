@@ -28,14 +28,14 @@ const GenEdSelector = ({ geneds = {}, setGenEds }) => {
   }
 
   return (
-    <Card sx={{ margin: 2 }}>
+    <Card>
       <CardContent>
-        <Typography sx={{ fontSize: 20 }} color="text.primary" gutterBottom>
+        <Typography sx={{ fontSize: 18 }} color="text.primary" gutterBottom>
           Gen Eds
         </Typography>
         <FormGroup>
           {Object.keys(genEdIds).map(genEdId => {
-            return (<FormControlLabel control={<Checkbox />} label={genEdIds[genEdId]} onChange={checkBoxUpdate(genEdId)} checked={geneds[genEdId]} />);
+            return (<FormControlLabel control={<Checkbox />} label={genEdIds[genEdId]} onChange={checkBoxUpdate(genEdId)} checked={geneds[genEdId]}/>);
           }
           )}
         </FormGroup>
