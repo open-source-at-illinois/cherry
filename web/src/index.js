@@ -16,6 +16,7 @@ const themeOptions = createTheme({
   },
 });
 
+
 ReactDOM.render(
   <React.StrictMode>
   <div>
@@ -26,7 +27,7 @@ ReactDOM.render(
           <App />
         </div>
         {
-          // <div className="spacer curve1"></div>
+          <div className="spacer curve1"></div>
         }
       </ThemeProvider>
     </Router>

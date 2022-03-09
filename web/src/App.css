@@ -8,7 +8,7 @@
 .curve1 {
   position: absolute;
   bottom: 0;
-  aspect-ratio: 900/50;
+  aspect-ratio: 1920/50;
   background-image: url(./images/wave-footer.svg);
 }
 
