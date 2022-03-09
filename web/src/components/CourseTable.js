@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,9 +12,9 @@ import CherryService from '../services/CherryService';
 import * as Constants from '../constants';
 
 const columns = [
-  { id: 'Course Number', label: 'Course Number', minWidth: 100 },
-  { id: 'Course Name', label: 'Course Title', minWidth: 170 },
-  { id: 'GPA', label: 'GPA', minWidth: 170 },
+  { id: 'Course Number', label: 'Course Number' },
+  { id: 'Course Name', label: 'Course Title'},
+  { id: 'GPA', label: 'GPA'},
 ];
 
 const CourseTable = ({preferences}) => {
@@ -53,9 +53,8 @@ const CourseTable = ({preferences}) => {
   }
 
   return (
-    <Paper sx={{
-      width: 0.8, overflow: 'hidden'}}>
-      <TableContainer sx={{ maxHeight: '85%' }}>
+    <Grid sx={{ width: '1.0', overflow: 'hidden'}}>
+      <TableContainer sx={{ maxHeight: '90%' }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -101,7 +100,7 @@ const CourseTable = ({preferences}) => {
         page={page}
         onPageChange={handleChangePage}
       />
-    </Paper>
+    </Grid>
   );
 }
 
