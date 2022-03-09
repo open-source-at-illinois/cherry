@@ -16,7 +16,8 @@ const SearchBar = ({searchTerm, setSearchTerm}) => {
     return (
         <TextField 
             label="Search (eg: ANTH, CS)" 
-            sx={{ minWidth: '90%', 
+            sx={{ 
+                minWidth: '100%', 
                 backgroundColor: 'white'
             }} 
             onChange={event => setQuery(event.target.value)}
