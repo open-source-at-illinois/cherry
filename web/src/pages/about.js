@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react"
-import logo from "./OSAI-Logo.png";
+import logo from "../images/osai-logo-light.png";
 import { Grid } from "@mui/material";
 import GithubService from "../services/GithubService";
 import Card from '@mui/material/Card';
