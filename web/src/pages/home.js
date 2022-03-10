@@ -4,6 +4,39 @@ import { Box } from "@mui/material";
 import CourseTable from '../components/CourseTable';
 import { useState } from "react";
 import useWindowDimensions from '../useWindowDimensions';
+import Alert from '@mui/material/Alert';
+import Collapse from '@mui/material/Collapse';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+
+const Disclaimer = () => {
+    const [open, setOpen] = useState(true);
+
+    const alertStyle = {
+        marginLeft: "15%",
+        marginRight: "15%",
+    }
+
+    return (
+        <Collapse in={open}>
+            <Alert sx={alertStyle} severity="info" action={
+                <IconButton
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                        setOpen(false);
+                    }}
+                >
+                    <CloseIcon fontSize="inherit" />
+                </IconButton>
+            }>
+            Information displayed on Cherry is not academic advice.
+            Speak with your advisor and select courses which fit your career and academic goals    
+        </Alert>
+        </Collapse>
+    )
+}
 
 const HomePage = () => {
 
@@ -40,11 +73,13 @@ const HomePage = () => {
         paddingLeft: 1,
         display: "flex",
     };
+    
     return (
         <>
             {
                 (width > 900) ?
                     <>
+                    <Disclaimer />
                     <Box container sx={containerStyle}>
                         <Box item sx={preferencesStyle}>
                             <Preferences preferences={preferences} setPreferences={setPreferences} />
@@ -57,6 +92,7 @@ const HomePage = () => {
                     </>
                     :
                     <>
+                        <Disclaimer />
                         <Box item sx={{diplay: 'flex'}}>
                             <Preferences preferences={preferences} setPreferences={setPreferences} />
                         </Box>
