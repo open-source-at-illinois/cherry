@@ -4,6 +4,22 @@ import { Box } from "@mui/material";
 import CourseTable from '../components/CourseTable';
 import { useState } from "react";
 import useWindowDimensions from '../useWindowDimensions';
+import Alert from '@mui/material/Alert';
+
+const Disclaimer = () => {
+
+    const alertStyle = {
+        marginLeft: "15%",
+        marginRight: "15%",
+    }
+
+    return (
+        <Alert sx={alertStyle} severity="info">
+            Information displayed on Cherry is not academic advice.
+            Speak with your advisor and select courses which fit your career and academic goals    
+        </Alert>
+    )
+}
 
 const HomePage = () => {
 
@@ -40,11 +56,13 @@ const HomePage = () => {
         paddingLeft: 1,
         display: "flex",
     };
+    
     return (
         <>
             {
                 (width > 900) ?
                     <>
+                    <Disclaimer />
                     <Box container sx={containerStyle}>
                         <Box item sx={preferencesStyle}>
                             <Preferences preferences={preferences} setPreferences={setPreferences} />
@@ -57,6 +75,7 @@ const HomePage = () => {
                     </>
                     :
                     <>
+                        <Disclaimer />
                         <Box item sx={{diplay: 'flex'}}>
                             <Preferences preferences={preferences} setPreferences={setPreferences} />
                         </Box>
