@@ -6,7 +6,7 @@ authors = []
 
 [tool.poetry.dependencies]
 python = ">=3.8"
-Flask = "^2.0.2"
+Flask = "^2.1.2"
 Flask-SQLAlchemy = "^2.5.1"
 gunicorn = "^20.1.0"
 pandas = "^1.4.0"
