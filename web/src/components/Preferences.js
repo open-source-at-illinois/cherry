@@ -3,6 +3,7 @@ import Card from '@mui/material/Card';
 // import { Typography } from "@mui/material";
 import GenEdSelector from "./GenEdSelector";
 import SearchBar from "./SearchBar";
+import Drop from "./Dropdown";
 
 const Preferences = ({preferences, setPreferences}) => {
 
@@ -34,6 +35,9 @@ const Preferences = ({preferences, setPreferences}) => {
             <Card sx={{ backgroundColor: "#f5f5f5", margin:3 }} variant="outlined">
                 <div style={preferencesStyle}>
                     <SearchBar searchTerm={preferences.searchTerm} setSearchTerm={updateSearchTerm} />
+                </div>
+                <div style={preferencesStyle}>
+                    <Drop/>
                 </div>
                 <div style={preferencesStyle}>
                     <GenEdSelector geneds={preferences.geneds} setGenEds={updateGenEds}/>
