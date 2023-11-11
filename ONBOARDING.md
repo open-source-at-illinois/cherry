@@ -25,6 +25,82 @@ Cherry has 2 kinds of meetings:
     3. What is planned to be done before the next meeting
   - These meetings ensure that everyone on the team is on the same page, and any issues are quickly addressed
 
+## Build Guide (Backend)
+
+### Prerequisites
+
+Before you begin, ensure you have Python installed on your system. This guide assumes you have basic familiarity with command line operations and your operating system's package manager.
+
+### 1. Clone the Repository
+
+First, clone the Cherry project repository to your local machine:
+
+```bash
+git clone https://github.com/open-source-at-illinois/cherry.git
+cd cherry/backend
+```
+
+### 2. Create a Python Virtual Environment
+
+Creating a virtual environment is a good practice to manage dependencies:
+
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+```
+
+### 3. Install Requirements
+
+Install the required Python packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Install SQLAlchemy
+
+#### For Ubuntu/Debian
+
+```bash
+sudo apt-get update
+sudo apt-get install python3-sqlalchemy
+```
+
+#### For Fedora/Red Hat
+
+```bash
+sudo dnf install python3-sqlalchemy
+```
+
+#### For macOS
+
+```bash
+brew install sqlalchemy
+```
+
+#### For Windows
+
+Ensure you have a package manager like Chocolatey, then:
+
+```bash
+choco install sqlalchemy
+```
+
+### 5. Run the Application
+
+With all dependencies in place, you can now run the application:
+You may need to restart your terminal to finish installing sqlalchemy
+
+```bash
+flask --app app run
+```
+
+This command starts the Flask development server and makes the Cherry backend accessible locally.
+
+### Conclusion
+
+Your Cherry backend setup is now complete! For further configurations and usage instructions, refer to the project documentation or contact the Cherry development team.
+
 ## Contributing
 Some guidelines to follow when writing code:
 - Write readable, clean code that is easy to understand. Follow good practices like writing descriptive commit messages, variable names and documentation. Write code you can be proud of!
