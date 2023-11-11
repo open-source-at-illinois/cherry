@@ -33,7 +33,7 @@ const ResponsiveAppBar = () => {
     const navVariant = "h6";
 
     return (
-        <AppBar position="static" elevation={0} sx={{backgroundColor:'white'}} >
+        <AppBar position="static" elevation={0} sx={{ backgroundColor: 'white' }} >
             <Container maxWidth="xl" sx={navStyle}>
                 <Toolbar disableGutters>
                     <Container sx={{ display: width > 900 ? 'flex' : 'none', flexGrow: 1 }}>
@@ -75,6 +75,11 @@ const ResponsiveAppBar = () => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
+                            <MenuItem key='Search' onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center">
+                                    <Link href='/home' underline='none' color='#0E0063' variant={navVariant}>Search</Link>
+                                </Typography>
+                            </MenuItem>
                             <MenuItem key='Analytics' onClick={handleCloseNavMenu}>
                                 <Typography textAlign="center">
                                     <Link href='/analytics' underline="none" color='#0E0063' variant={navVariant}>Analytics</Link>
@@ -107,9 +112,18 @@ const ResponsiveAppBar = () => {
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         <Button
+                            key='Search'
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white', display: 'block', paddingLeft: 5, paddingRight: 5 }}
+                        >
+                            <Typography textAlign="center">
+                                <Link href='/home' underline="none" color='#0E0063' variant={navVariant}>Search</Link>
+                            </Typography>
+                        </Button>
+                        <Button
                             key='Analytics'
                             onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white', display: 'block', paddingLeft: 10, paddingRight: 10 }}
+                            sx={{ my: 2, color: 'white', display: 'block', paddingLeft: 5, paddingRight: 5 }}
                         >
                             <Typography textAlign="center">
                                 <Link href='/analytics' underline="none" color='#0E0063' variant={navVariant}>Analytics</Link>
@@ -118,7 +132,7 @@ const ResponsiveAppBar = () => {
                         <Button
                             key='About'
                             onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white', display: 'block', paddingLeft: 10, paddingRight: 10 }}
+                            sx={{ my: 2, color: 'white', display: 'block', paddingLeft: 5, paddingRight: 5 }}
                         >
                             <Typography textAlign="center">
                                 <Link href='/about' underline="none" color='#0E0063' variant={navVariant}>About</Link>
@@ -127,7 +141,7 @@ const ResponsiveAppBar = () => {
                         <Button
                             key='Github'
                             onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white', display: 'block', paddingLeft: 10, paddingRight: 10 }}
+                            sx={{ my: 2, color: 'white', display: 'block', paddingLeft: 5, paddingRight: 5 }}
                         >
                             <Typography textAlign="center">
                                 <Link href='https://github.com/open-source-at-illinois/cherry' underline="none" color='#0E0063' variant={navVariant}>Github</Link>
