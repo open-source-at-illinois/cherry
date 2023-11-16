@@ -2,12 +2,12 @@ import { Dropdown } from '@mui/base/Dropdown';
 import { MenuButton } from '@mui/base/MenuButton';
 import { Menu } from '@mui/base/Menu';
 import { MenuItem } from '@mui/base/MenuItem';
-import { Card, CardContent, Modal } from '@mui/material';
-import { Typography } from '@mui/material';
-import { Button } from '@mui/material';
+import { Card, CardContent, Modal, Button, Box } from '@mui/material';
+import { Typography } from '@mui/material'; // remove unused imports
 import { useState } from 'react';
+import GenEdSelector from "./GenEdSelector";
 
-const Drop = () => {
+const Drop = ({prefs, setPrefs}) => {
     const [open, setOpen] = useState(false);
 
     const modalStyle ={
@@ -21,6 +21,10 @@ const Drop = () => {
         boxShadow: 24,
         p: 4,
     };
+    
+    const updateGenEds = (geneds) => {
+        setPrefs({...prefs, geneds: geneds});
+    }
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -33,9 +37,10 @@ const Drop = () => {
             >
                 <Card sx={modalStyle}>
                 <CardContent>
-                    <Typography sx={{ fontSize: 18, textAlign: 'center' }} color="text.primary" gutterBottom>
-                    Gen Eds
-                    </Typography>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+                        <GenEdSelector geneds={prefs.geneds} setGenEds={updateGenEds} />
+                        <Button onClick={() => setOpen(false)}>Close</Button>
+                    </Box>
                 </CardContent>
                 </Card>
             </Modal>
