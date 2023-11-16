@@ -2,4 +2,4 @@
 
 // CourseTable.js
 
-export const COURSEEXPLORERURL = 'https://courses.illinois.edu/schedule/2022/fall/';
+export const COURSEEXPLORERURL = 'https://courses.illinois.edu/schedule/2023/spring/';

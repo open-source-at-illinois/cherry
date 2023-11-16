@@ -17,10 +17,6 @@ const Preferences = ({preferences, setPreferences}) => {
     //     return () => preferences[parameter] || 20;
     // }
 
-    const updateGenEds = (geneds) => {
-        setPreferences({...preferences, geneds: geneds});
-    }
-
     const updateSearchTerm = (newSearchTerm) => {
         setPreferences({...preferences, searchTerm: newSearchTerm});
     }
@@ -37,10 +33,7 @@ const Preferences = ({preferences, setPreferences}) => {
                     <SearchBar searchTerm={preferences.searchTerm} setSearchTerm={updateSearchTerm} />
                 </div>
                 <div style={preferencesStyle}>
-                    <Drop/>
-                </div>
-                <div style={preferencesStyle}>
-                    <GenEdSelector geneds={preferences.geneds} setGenEds={updateGenEds}/>
+                    <Drop prefs={preferences} setPrefs={setPreferences}/>
                 </div>
             </Card>
         </>
